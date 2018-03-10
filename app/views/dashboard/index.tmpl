@@ -1,0 +1,30 @@
+{{define "content"}}
+  <div class="ant-layout">
+    <div class="ant-layout-header" style="position: fixed; width: 100%;">
+      <div class="logo"></div>
+      <ul class="ant-menu ant-menu-dark ant-menu-root ant-menu-horizontal" role="menu" aria-activedescendant="" tabindex="0" style="line-height: 64px;">
+        <li class="ant-menu-item" role="menuitem" aria-selected="false">nav 1</li>
+        <li class="ant-menu-item ant-menu-item-selected" role="menuitem" aria-selected="true">nav 2</li>
+        <li class="ant-menu-item" role="menuitem" aria-selected="false">nav 3</li>
+      </ul>
+    </div>
+    <div class="ant-layout-content" style="padding: 0px 50px; margin-top: 64px;">
+      <div class="ant-breadcrumb" style="margin: 16px 0px;">
+        <span>
+          <span class="ant-breadcrumb-link">Home</span>
+          <span class="ant-breadcrumb-separator">/</span>
+        </span>
+        <span>
+          <span class="ant-breadcrumb-link">List</span>
+          <span class="ant-breadcrumb-separator">/</span>
+        </span>
+        <span>
+          <span class="ant-breadcrumb-link">App</span>
+          <span class="ant-breadcrumb-separator">/</span>
+        </span>
+      </div>
+      <div style="background: rgb(255, 255, 255); padding: 24px; min-height: 380px;">Content</div>
+    </div>
+    <div class="ant-layout-footer" style="text-align: center;">Ant Design ©2016 Created by Ant UED</div>
+</div>
+{{end}}

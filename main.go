@@ -48,6 +48,7 @@ func main() {
 
 	router.Use(sessions.Sessions("mysession", store))
 	router.Use(gzip.Gzip(gzip.DefaultCompression))
+	router.Static("/assets", "./assets")
 	router.Use(gin.Recovery())
 
 	render := ezgintemplate.New()
