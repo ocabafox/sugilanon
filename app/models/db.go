@@ -22,7 +22,7 @@ func Setup() {
 	}
 
 	dbHost := getenvWithDefault("DB_HOST", "localhost")
-	dbName := getenvWithDefault("DB_NAME", "payrollspace")
+	dbName := getenvWithDefault("DB_NAME", "sugilanon")
 	dbUser := getenvWithDefault("DB_USER", "root")
 	dbPass := getenvWithDefault("DB_PASS", "")
 	dbPort := getenvWithDefault("DB_PORT", "3306")
