@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 	"time"
 
@@ -17,7 +16,6 @@ import (
 )
 
 func init() {
-	log.SetFlags(log.Lshortfile)
 	models.Setup()
 }
 

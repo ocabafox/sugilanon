@@ -14,6 +14,7 @@ func Convert(s string) string {
 		if sub[1] != "" {
 			a = append(a, sub[1])
 		}
+
 		if sub[2] != "" {
 			a = append(a, sub[2])
 		}
