@@ -8,8 +8,7 @@ import (
 	"github.com/XanderDwyl/sugilanon/app/controllers"
 	"github.com/XanderDwyl/sugilanon/app/models"
 	jwt "github.com/dgrijalva/jwt-go"
-
-	"gopkg.in/gin-gonic/gin.v1"
+	"github.com/gin-gonic/gin"
 )
 
 // APIAuth ...
