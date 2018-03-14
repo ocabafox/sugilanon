@@ -16,13 +16,8 @@ dependencies:
 
 test:
   pre:
-    - cd $PROJECT_PATH && go vet ./... && golint ./... && errcheck ./...
+    - cd $PROJECT_PATH
+    # - cd $PROJECT_PATH && go vet ./... && golint ./... && errcheck ./...
 
   override:
     - cd $PROJECT_PATH && go test ./...
-
-deployment:
-  production:
-    branch: master
-    commands:
-      - ./deploy.sh

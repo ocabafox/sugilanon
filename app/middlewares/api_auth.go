@@ -71,7 +71,7 @@ func APIAuth() gin.HandlerFunc {
 		}
 
 		if user.UserID == 0 || user.Username == "" {
-			controllers.OutputErrorJSON(c, "User not found")
+			controllers.OutputJSON(c, "200", "User not found")
 			c.Abort()
 			return
 		}
