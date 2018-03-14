@@ -1,0 +1,28 @@
+machine:
+  environment:
+    IMPORT_PATH: github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+    PROJECT_PATH: $HOME/.go_workspace/src/$IMPORT_PATH
+
+dependencies:
+  pre:
+    - ./setup.sh
+    - go get github.com/golang/lint/golint
+    - go get github.com/kisielk/errcheck
+
+  override:
+    - mkdir -p  $PROJECT_PATH
+    - rsync -az --delete ./ $PROJECT_PATH/
+    - cd $PROJECT_PATH && go get -u ./...
+
+test:
+  pre:
+    - cd $PROJECT_PATH && go vet ./... && golint ./... && errcheck ./...
+
+  override:
+    - cd $PROJECT_PATH && go test ./...
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./deploy.sh
