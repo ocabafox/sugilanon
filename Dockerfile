@@ -2,11 +2,16 @@ FROM golang
 LABEL maintainer="Alexjander T. Bacalso <info.sugilanon@gmail.com>"
 
 WORKDIR /go/src/github.com/XanderDwyl/sugilanon/
-COPY vendor vendor
+
 COPY assets assets
 COPY app app
+COPY glide.yaml .
 COPY main.go .
-RUN ls -al
+
+RUN curl https://glide.sh/get | sh
+RUN glide install
+
+# building binary go
 RUN CGO_ENABLED=0 go build -o webapp main.go
 
 FROM scratch
