@@ -21,3 +21,9 @@ test:
 
   override:
     - cd $PROJECT_PATH && go test ./...
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./deploy.sh
