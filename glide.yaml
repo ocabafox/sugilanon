@@ -1,15 +1,16 @@
 package: github.com/XanderDwyl/sugilanon
 import:
-- package: github.com/bradfitz/gomemcache
-  subpackages:
-  - memcache
-- package: github.com/dgrijalva/jwt-go
-  version: ~3.1.0
+- package: golang.org/x/oauth2
 - package: github.com/gin-gonic/gin
 - package: github.com/gin-contrib/gzip
 - package: github.com/gin-contrib/sessions
 - package: github.com/gin-contrib/cors
+- package: github.com/dgrijalva/jwt-go
+  version: ~3.1.0
 - package: github.com/jinzhu/gorm
   version: ~1.0.0
   subpackages:
   - dialects/mysql
+- package: github.com/bradfitz/gomemcache
+  subpackages:
+  - memcache
