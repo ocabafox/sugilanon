@@ -6272,7 +6272,7 @@ body{
 }
 .tm-navbar-container:not(.uk-navbar-transparent){
     /* background:linear-gradient(to left, #28a5f5, #1e87f0) */
-    background: linear-gradient(to left, #ffe8c6, #f9ecde);
+    background: linear-gradient(to left, #f5e3ce, #f7f3ed);
 }
 .tm-navbar-container .uk-navbar-nav>li>a,.tm-navbar-container .uk-navbar-item:not(.uk-logo),.tm-navbar-container .uk-navbar-toggle{
     height:70px;
