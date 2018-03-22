@@ -26,10 +26,10 @@ func main() {
 	}
 
 	if os.Getenv("MODE") != "production" {
-		allowOrigins = append(allowOrigins, "http://localhost:8080")
-		allowOrigins = append(allowOrigins, "http://localhost:8081")
-		allowOrigins = append(allowOrigins, "http://127.0.0.1:8080")
-		allowOrigins = append(allowOrigins, "http://127.0.0.1:8081")
+		allowOrigins = append(allowOrigins, "http://localhost:3000")
+		allowOrigins = append(allowOrigins, "http://localhost:3000")
+		allowOrigins = append(allowOrigins, "http://127.0.0.1:3000")
+		allowOrigins = append(allowOrigins, "http://127.0.0.1:3000")
 	}
 
 	router.Use(cors.New(cors.Config{
@@ -46,6 +46,7 @@ func main() {
 	router.Use(sessions.Sessions("mysession", store))
 	router.Use(gzip.Gzip(gzip.DefaultCompression))
 	router.Static("/assets", "./assets")
+	// router.Static("/certificate", "./certificate")
 	router.Use(gin.Recovery())
 
 	render := ezgintemplate.New()
@@ -57,8 +58,9 @@ func main() {
 	router.HTMLRender = render.Init()
 	initializeRoutes(router)
 
-	router.Run(":3000")
+	router.RunTLS(":3000", "./certificate/server.crt", "./certificate/server.key")
 }
+
 func initializeRoutes(origRouter *gin.Engine) {
 	router := origRouter.Group("")
 
