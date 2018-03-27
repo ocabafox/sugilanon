@@ -13,7 +13,7 @@ window.fbAsyncInit = function() {
 
 function statusChangeCallback(response) {
   if (response.status === 'connected') {
-    FB.api('/me?fields=email,name', function(response) {
+    FB.api('/me?fields=id,name,email', function(response) {
       if (response && !response.error) {
 	console.log(response);
       }
@@ -23,7 +23,9 @@ function statusChangeCallback(response) {
 
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
+    if (response.status === 'connected') {
+      statusChangeCallback(response);
+    }
   });
 }
 

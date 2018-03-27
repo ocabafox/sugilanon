@@ -114,12 +114,6 @@ func Setup() {
 func MigrateTables() {
 	// users table
 	db.AutoMigrate(&User{})
-
-	// role_access table
-	db.AutoMigrate(&RoleAccess{})
-
-	// subscribers table
-	db.AutoMigrate(&Subscribers{})
 }
 
 // getenvWithDefault ...
