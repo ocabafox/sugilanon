@@ -6,6 +6,8 @@ import (
 	"strings"
 
 	"github.com/XanderDwyl/sugilanon/app/libs/tmplname"
+	"github.com/XanderDwyl/sugilanon/app/models"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,19 +30,19 @@ func OutputDataJSON(c *gin.Context, status, msg string, data gin.H) {
 
 // RenderHTML ...
 func RenderHTML(c *gin.Context, data gin.H) {
-
 	pc, _, _, _ := runtime.Caller(1)
 	callerName := runtime.FuncForPC(pc).Name()
+
 	for strings.Contains(callerName, ".") {
 		a := strings.Index(callerName, ".")
 		callerName = callerName[a+1:]
 	}
 
 	tmpl := tmplname.Convert(callerName)
-	// check whether the file is existed.
 	_, err := os.Stat("app/views/" + tmpl + ".tmpl")
 	if err != nil {
 		c.String(200, "%s not found", "app/views/"+tmpl+".tmpl")
+
 		return
 	}
 
@@ -49,7 +51,49 @@ func RenderHTML(c *gin.Context, data gin.H) {
 
 // RenderTemplate ...
 func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
-	data["host"] = c.Request.Host
+	data["is_login"] = IsLogin(c)
 
 	c.HTML(statusCode, tmpl, data)
+}
+
+func IsLogin(c *gin.Context) bool {
+	isLogin, ok := c.Get("is_login")
+	if ok && isLogin.(bool) {
+		return true
+	}
+
+	session := sessions.Default(c)
+	flag := session.Get("is_login")
+	if flag != nil {
+		val, ok := flag.(int)
+		if ok && val == 1 {
+			return true
+		}
+	}
+
+	return false
+}
+
+func SetAuth(c *gin.Context, user models.User) {
+	session := sessions.Default(c)
+
+	session.Set("is_login", 1)
+	session.Set("is_verified", user.IsVerified)
+	session.Set("facebook_id", user.FacebookId)
+	session.Set("username", user.Username)
+	session.Set("name", user.Name)
+	session.Set("email", user.Email)
+	session.Save()
+}
+
+func ClearAuth(c *gin.Context) {
+	session := sessions.Default(c)
+
+	session.Delete("is_login")
+	session.Delete("is_verified")
+	session.Delete("facebook_id")
+	session.Delete("username")
+	session.Delete("name")
+	session.Delete("email")
+	session.Save()
 }

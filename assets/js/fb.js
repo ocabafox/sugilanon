@@ -7,25 +7,30 @@ window.fbAsyncInit = function() {
   });
 
   FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
+    if (response.status === 'connected') {
+      FB.api('/me?fields=id,name,email', function(response) {
+	if (response && !response.error) {
+	  console.log(response);
+	}
+      })
+    }
   });
 };
-
-function statusChangeCallback(response) {
-  if (response.status === 'connected') {
-    FB.api('/me?fields=id,name,email', function(response) {
-      if (response && !response.error) {
-	console.log(response);
-      }
-    })
-  }
-}
 
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
-      console.log($);
-      statusChangeCallback(response);
+      FB.api('/me?fields=id,name,email', function(response) {
+	if (response && !response.error) {
+	  $.post("/login", {
+	    facebook_id: response.id,
+	    name: response.name,
+	    email: response.email
+	  }).done(function() {
+	    location.reload();
+	  });
+	}
+      })
     }
   });
 }

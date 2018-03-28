@@ -29,7 +29,7 @@ func main() {
 	}
 
 	store := sessions.NewCookieStore([]byte("Lod5c5F"))
-
+	router.Static("/assets", "./assets")
 	router.Use(sessions.Sessions("mysession", store))
 	router.Use(gzip.Gzip(gzip.DefaultCompression))
 	router.Use(gin.Recovery())
@@ -41,7 +41,6 @@ func main() {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-	router.Static("/assets", "./assets")
 
 	render := ezgintemplate.New()
 	render.TemplatesDir = "app/views/"
@@ -59,5 +58,5 @@ func initializeRoutes(origRouter *gin.Engine) {
 	router := origRouter.Group("")
 
 	router.GET("/", controllers.AppIndex)
-	router.GET("/login", controllers.LoginIndex)
+	router.POST("/login", controllers.LoginIndex)
 }

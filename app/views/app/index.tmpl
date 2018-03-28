@@ -8,21 +8,23 @@
           </div>
           <div class="uk-navbar-right">
             <ul class="uk-navbar-nav uk-visible@m">
-              <li>
-                <a href="">about us</a>
-              </li>
-              <li>
-		<div
-		  class="fb-login-button"
-		  data-max-rows="1"
-		  data-size="medium"
-		  data-button-type="login_with"
-		  data-show-faces="false"
-		  data-auto-logout-link="false"
-		  data-use-continue-as="true"
-		  data-scope="public_profile"
-		  onlogin="checkLoginState();"></div>
+	      <li>
+		<a href="">about us</a>
 	      </li>
+							{{if eq .is_login false}}
+								<li>
+									<div
+										class="fb-login-button"
+										data-max-rows="1"
+										data-size="medium"
+										data-button-type="login_with"
+										data-show-faces="false"
+										data-auto-logout-link="false"
+										data-use-continue-as="true"
+										data-scope="public_profile"
+										onlogin="checkLoginState();"></div>
+								</li>
+							{{end}}
 	    </ul>
 						<a
 							uk-navbar-toggle-icon=""
