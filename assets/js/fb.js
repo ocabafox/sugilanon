@@ -24,6 +24,7 @@ function statusChangeCallback(response) {
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
+      console.log($);
       statusChangeCallback(response);
     }
   });

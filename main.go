@@ -59,4 +59,5 @@ func initializeRoutes(origRouter *gin.Engine) {
 	router := origRouter.Group("")
 
 	router.GET("/", controllers.AppIndex)
+	router.GET("/login", controllers.LoginIndex)
 }
