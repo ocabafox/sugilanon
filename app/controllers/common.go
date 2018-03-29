@@ -52,6 +52,7 @@ func RenderHTML(c *gin.Context, data gin.H) {
 // RenderTemplate ...
 func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
 	data["is_login"] = IsLogin(c)
+	data["is_verified"] = IsVerified(c)
 
 	c.HTML(statusCode, tmpl, data)
 }
@@ -68,6 +69,19 @@ func IsLogin(c *gin.Context) bool {
 		val, ok := flag.(int)
 		if ok && val == 1 {
 			return true
+		}
+	}
+
+	return false
+}
+
+func IsVerified(c *gin.Context) bool {
+	session := sessions.Default(c)
+	flag := session.Get("is_verified")
+	if flag != nil {
+		val, ok := flag.(bool)
+		if ok {
+			return val
 		}
 	}
 

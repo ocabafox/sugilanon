@@ -54,8 +54,8 @@ func (u *User) Update() (User, error) {
 	return *u, err
 }
 
-func (u *User) GetUser() ([]User, error) {
-	var user []User
+func (u *User) GetUser() (User, error) {
+	var user User
 	err := db.Debug().Model(&User{}).Where("facebook_id=?", u.FacebookId).Scan(&user).Error
 
 	return user, err

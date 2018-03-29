@@ -17,11 +17,11 @@ func LoginIndex(c *gin.Context) {
 	}
 
 	user, _ := account.GetUser()
-	if len(user) == 0 {
+	if user.ID == 0 {
 		account, _ = account.Create()
 	} else {
-		if account.Updated == user[0].Updated {
-			account = user[0]
+		if account.Updated == user.Updated {
+			account = user
 		} else {
 			account, _ = account.Update()
 		}
