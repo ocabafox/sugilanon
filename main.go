@@ -60,8 +60,9 @@ func initializeRoutes(origRouter *gin.Engine) {
 	router.GET("/", controllers.AppIndex)
 	router.GET("/about", controllers.AboutIndex)
 	router.GET("/settings", controllers.SettingsIndex)
-	router.GET("/logout", controllers.LogoutIndex)
+	router.GET("/logout", controllers.Logout)
+	router.GET("/deactivate/:facebook_id", controllers.Deactivate)
 	router.GET("/verify/:facebook_id/:verification_token", controllers.VerifyIndex)
 
-	router.POST("/login", controllers.LoginIndex)
+	router.POST("/login", controllers.Login)
 }

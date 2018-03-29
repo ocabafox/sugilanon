@@ -11,7 +11,7 @@ import (
 // User ....
 type User struct {
 	ID                int64      `gorm:"AUTO_INCREMENT" json:"id"`
-	FacebookId        string     `gorm:"type:varchar(32);unique_index" json:facebook_id"`
+	FacebookId        string     `gorm:"type:varchar(32)" json:facebook_id"`
 	Name              string     `gorm:"type:varchar(32)" json:"name"`
 	Username          string     `gorm:"type:varchar(32)" json:"username"`
 	Email             string     `gorm:"type:varchar(130)" json:"email"`
@@ -23,6 +23,7 @@ type User struct {
 	IsVerified        bool       `json:"is_verified,omitempty"`
 	CreatedAt         *time.Time `json:"created_at,omitempty"`
 	UpdatedAt         *time.Time `json:"updated_at,omitempty"`
+	DeletedAt         *time.Time `json:"deleted_at",omitempty"`
 }
 
 // CreateJWToken ...
@@ -52,6 +53,12 @@ func (u *User) Update() (User, error) {
 	err := db.Debug().Model(&u).Omit("facebook_id", "created_at").Updates(&u).Error
 
 	return *u, err
+}
+
+func (u *User) Delete() error {
+	err := db.Debug().Model(&u).Where("facebook_id=?", u.FacebookId).Delete(&u).Error
+
+	return err
 }
 
 func (u *User) GetUser() (User, error) {

@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func LoginIndex(c *gin.Context) {
+func Login(c *gin.Context) {
 	account := models.User{
 		FacebookId: c.PostForm("facebook_id"),
 		Name:       c.PostForm("name"),
@@ -30,6 +30,6 @@ func LoginIndex(c *gin.Context) {
 	SetAuth(c, account)
 }
 
-func LogoutIndex(c *gin.Context) {
+func Logout(c *gin.Context) {
 	ClearAuth(c)
 }
