@@ -58,5 +58,6 @@ func initializeRoutes(origRouter *gin.Engine) {
 	router := origRouter.Group("")
 
 	router.GET("/", controllers.AppIndex)
+	router.GET("/logout", controllers.LogoutIndex)
 	router.POST("/login", controllers.LoginIndex)
 }

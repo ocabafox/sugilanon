@@ -5,20 +5,10 @@ window.fbAsyncInit = function() {
     xfbml      : true,
     version    : 'v2.12'
   });
-
-  FB.getLoginStatus(function(response) {
-    if (response.status === 'connected') {
-      FB.api('/me?fields=id,name,email', function(response) {
-	if (response && !response.error) {
-	  console.log(response);
-	}
-      })
-    }
-  });
 };
 
-function checkLoginState() {
-  FB.getLoginStatus(function(response) {
+function login() {
+  FB.login(function(response) {
     if (response.status === 'connected') {
       FB.api('/me?fields=id,name,email', function(response) {
 	if (response && !response.error) {
@@ -31,6 +21,18 @@ function checkLoginState() {
 	  });
 	}
       })
+    }
+  });
+}
+
+function logout() {
+  FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') {
+      FB.logout(function(response) {
+	$.get("/logout").done(function() {
+	  location.reload();
+	});
+      });
     }
   });
 }

@@ -27,3 +27,7 @@ func LoginIndex(c *gin.Context) {
 
 	SetAuth(c, account)
 }
+
+func LogoutIndex(c *gin.Context) {
+	ClearAuth(c)
+}
