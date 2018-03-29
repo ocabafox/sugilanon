@@ -53,6 +53,7 @@ func RenderHTML(c *gin.Context, data gin.H) {
 func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
 	data["is_login"] = IsLogin(c)
 	data["is_verified"] = IsVerified(c)
+	data["facebook_id"] = GetFacebookId(c)
 
 	c.HTML(statusCode, tmpl, data)
 }
@@ -86,6 +87,19 @@ func IsVerified(c *gin.Context) bool {
 	}
 
 	return false
+}
+
+func GetFacebookId(c *gin.Context) string {
+	session := sessions.Default(c)
+	facebookId := session.Get("facebook_id")
+	if facebookId != nil {
+		val, ok := facebookId.(string)
+		if ok {
+			return val
+		}
+	}
+
+	return ""
 }
 
 func SetAuth(c *gin.Context, user models.User) {
