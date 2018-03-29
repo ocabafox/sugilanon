@@ -1,0 +1,36 @@
+{{define "partials/navbar"}}
+  <div uk-sticky="media: 960" class="uk-navbar-container tm-navbar-container uk-sticky uk-sticky-fixed">
+    <div class="uk-container uk-container-expand">
+      <nav class="uk-navbar" uk-navbar="mode: click">
+	<div class="uk-navbar-left">
+	  <img src="./assets/images/sugilanon-v1.png"/>
+	</div>
+	<div class="uk-navbar-right">
+	  <ul class="uk-navbar-nav uk-visible@m desktop-navbar">
+	    {{if eq .is_login false}}
+	      <li><a href="#">ABOUT US</a></li>
+	      <li><a href="#" onclick="login();">LOGIN</a></li>
+	    {{else}}
+	      <li><a href="#" onclick="logout();">LOGOUT</a></li>
+	    {{end}}
+	  </ul>
+	  <ul class="uk-navbar-nav uk-hidden@m mobile-navbar">
+	    <li>
+	      <a href="#" class="uk-navbar-toggle" uk-navbar-toggle-icon></a>
+	      <div class="uk-navbar-dropdown">
+		<ul class="uk-nav uk-navbar-dropdown-nav">
+		  {{if eq .is_login false}}
+		    <li><a href="#">ABOUT US</a></li>
+		    <li><a href="#" onclick="login();">LOGIN</a></li>
+		  {{else}}
+		    <li><a href="#" onclick="logout();">LOGOUT</a></li>
+		  {{end}}
+		</ul>
+	      </div>
+	    </li>
+	  </ul>
+	</div>
+      </nav>
+    </div>
+  </div>
+{{end}}
