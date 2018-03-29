@@ -1,49 +1,45 @@
 {{define "content"}}
-  <div class="uk-offcanvas-content">
-    {{template "partials/navbar" .}}
-    <div class="uk-height-large uk-background-cover uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('./assets/images/night-lamp.jpg');">
-      <h4 class="uk-padding uk-width-1-1@m uk-text-center uk-margin-auto uk-margin-auto-vertical h-shadow" uk-parallax="target: #test-filter; blur: 0,10;">
-	 Ang sugilanon nahimo nang tipik sa atong kaugalingon. Sama kanindot sa mga bituon nga ni-aninag sa kagabhion, nga usahay
-	mapahiyumon natong lingi-on. Usahay dili nato ikalimod, nga ang atong sugilanon maoy magtukmod ning kinahubi sa panlimbasog
-	aron kita mabuhi. Pero adunay sugilanon nga lisod natong hinumduman, sama ugaling kung grabing kasakit ang atong nahiaguman.
-	Apan kung atong mahinumduman, kining tanan pagbuot sa atong kahitas-an. Dili man patas kung sa atong pagtaw-an, apan sa ulahi
-	kita ra ang mabulahan.
-      </h4>
-    </div>
-    <div class="uk-section uk-section-muted">
-      <div class="uk-container">
-        <ul uk-tab>
-          <li class="uk-active" uk-switcher>
-            <a href="#">Pakighinabi</a>
-          </li>
-          <li>
-            <a href="#">Sugilanon</a>
-          </li>
-        </ul>
+  <div
+    class="uk-height-large uk-background-cover uk-overflow-hidden uk-light uk-flex uk-flex-top"
+    style="background-image: url('./assets/images/night-lamp.jpg');">
+    <h4
+			class="uk-padding uk-width-1-1@m uk-text-center uk-margin-auto uk-margin-auto-vertical h-shadow"
+			uk-parallax="target: #test-filter; blur: 0,10;">
+      Ang sugilanon nahimo nang tipik sa atong kaugalingon. Sama kanindot sa mga bituon nga ni-aninag sa kagabhion, nga usahay
+      mapahiyumon natong lingi-on. Usahay dili nato ikalimod, nga ang atong sugilanon maoy magtukmod ning kinahubi sa panlimbasog
+      aron kita mabuhi. Pero adunay sugilanon nga lisod natong hinumduman, sama ugaling kung grabing kasakit ang atong nahiaguman.
+      Apan kung atong mahinumduman, kining tanan pagbuot sa atong kahitas-an. Dili man patas kung sa atong pagtaw-an, apan sa ulahi
+      kita ra ang mabulahan.
+    </h4>
+  </div>
+  <div class="uk-section uk-section-muted">
+    <div class="uk-container">
+      <ul uk-tab>
+	<li class="uk-active" uk-switcher><a href="#">Pakighinabi</a></li>
+	<li><a href="#">Sugilanon</a></li>
+      </ul>
 
-        <ul class="uk-switcher uk-margin">
-          <li>
-            <div class="uk-card uk-card-default uk-padding">
-              <div class="uk-width-expand">
-                <h4>
-                  <a href="#" class="uk-link-reset">Author</a>
-                </h4>
-              </div>
-	      sample
-            </div>
-            <div class="uk-card uk-card-secondary uk-padding">
-              <div class="uk-width-expand">
-                <h4>
-                  <a href="#" class="uk-link-reset">Author</a>
-                </h4>
-              </div>
-              sample
-            </div>
-          </li>
-          <li>Hello!</li>
-        </ul>
-      </div>
+      <ul class="uk-switcher uk-margin">
+	<li>
+	  <div class="uk-card uk-card-default uk-padding">
+	    <div class="uk-width-expand">
+	      <h4>
+		<a href="#" class="uk-link-reset">Author</a>
+	      </h4>
+	    </div>
+	    sample
+	  </div>
+	  <div class="uk-card uk-card-secondary uk-padding">
+	    <div class="uk-width-expand">
+	      <h4>
+		<a href="#" class="uk-link-reset">Author</a>
+	      </h4>
+	    </div>
+	    sample
+	  </div>
+	</li>
+	<li>Hello!</li>
+      </ul>
     </div>
-    {{template "partials/footer"}}
   </div>
 {{end}}
