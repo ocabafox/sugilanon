@@ -12,9 +12,13 @@ import (
 type User struct {
 	ID                int64      `gorm:"AUTO_INCREMENT" json:"id"`
 	FacebookId        string     `gorm:"type:varchar(32);unique_index" json:facebook_id"`
-	Username          string     `gorm:"type:varchar(32);unique_index" json:"username"`
 	Name              string     `gorm:"type:varchar(32)" json:"name"`
-	Email             string     `gorm:"type:varchar(130);unique_index" json:"email"`
+	Username          string     `gorm:"type:varchar(32)" json:"username"`
+	Email             string     `gorm:"type:varchar(130)" json:"email"`
+	Link              string     `gorm:"type:varchar(130)" json:"link"`
+	Gender            string     `gorm:"type:varchar(130)" json:"gender,omitempty"`
+	Website           string     `gorm:"type:varchar(130)" json:"website,omitempty"`
+	Updated           string     `gorm:"type:varchar(130)" json:"updated"`
 	VerificationToken string     `json:"verification_token,omitempty"`
 	IsVerified        bool       `json:"is_verified,omitempty"`
 	CreatedAt         *time.Time `json:"created_at,omitempty"`
@@ -40,6 +44,12 @@ func (u *User) Create() (User, error) {
 	u.VerificationToken = "TOKEN"
 	u.IsVerified = false
 	err := db.Debug().Model(&u).Create(&u).Error
+
+	return *u, err
+}
+
+func (u *User) Update() (User, error) {
+	err := db.Debug().Model(&u).Omit("facebook_id", "created_at").Updates(&u).Error
 
 	return *u, err
 }
