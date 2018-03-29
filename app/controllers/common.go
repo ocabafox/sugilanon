@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/XanderDwyl/sugilanon/app/libs/tmplname"
-	"github.com/XanderDwyl/sugilanon/app/models"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
@@ -102,7 +101,7 @@ func GetFacebookId(c *gin.Context) string {
 	return ""
 }
 
-func SetAuth(c *gin.Context, user models.User) {
+func SetAuth(c *gin.Context, user User) {
 	session := sessions.Default(c)
 
 	session.Set("is_login", 1)

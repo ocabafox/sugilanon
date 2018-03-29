@@ -11,16 +11,16 @@ func VerifyIndex(c *gin.Context) {
 	verificationToken := c.Param("verification_token")
 
 	successfulVerification := false
-	user, _ := models.GetUserById(facebookId)
-	if !user.IsVerified && user.VerificationToken == verificationToken {
+	appUser, _ := models.GetAppUserById(facebookId)
+	if !appUser.IsVerified && appUser.VerificationToken == verificationToken {
 		successfulVerification = true
 
 		session := sessions.Default(c)
 		session.Set("is_verified", successfulVerification)
 		session.Save()
 
-		user.IsVerified = successfulVerification
-		user.Update()
+		appUser.IsVerified = successfulVerification
+		appUser.AppUpdate()
 	}
 
 	RenderHTML(c, gin.H{
