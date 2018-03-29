@@ -60,3 +60,10 @@ func (u *User) GetUser() ([]User, error) {
 
 	return user, err
 }
+
+func GetUserById(facebookId string) (User, error) {
+	var user User
+	err := db.Debug().Model(&User{}).Where("facebook_id=?", facebookId).Scan(&user).Error
+
+	return user, err
+}
