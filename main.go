@@ -19,9 +19,10 @@ func init() {
 }
 
 func main() {
-	PORT := os.Getenv("PORT")
-	if PORT == "" {
-		PORT = "3000"
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "3000"
 	}
 
 	router := gin.Default()
@@ -56,7 +57,11 @@ func main() {
 
 	initializeRoutes(router)
 
-	router.RunTLS(":"+PORT, "./certificate/server.crt", "./certificate/server.key")
+	if os.Getenv("MODE") != "production" {
+		router.RunTLS(":"+port, "./certificate/server.crt", "./certificate/server.key")
+	} else {
+		router.Run(":" + port)
+	}
 }
 
 func initializeRoutes(origRouter *gin.Engine) {
