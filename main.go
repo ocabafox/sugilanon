@@ -19,6 +19,11 @@ func init() {
 }
 
 func main() {
+	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		PORT = "3000"
+	}
+
 	router := gin.Default()
 	allowOrigins := []string{
 		"https://sugilanon.com",
@@ -51,7 +56,7 @@ func main() {
 
 	initializeRoutes(router)
 
-	router.RunTLS(":3000", "./certificate/server.crt", "./certificate/server.key")
+	router.RunTLS(":"+PORT, "./certificate/server.crt", "./certificate/server.key")
 }
 
 func initializeRoutes(origRouter *gin.Engine) {
