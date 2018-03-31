@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// AppIndex ...
-func AppIndex(c *gin.Context) {
+func AboutIndex(c *gin.Context) {
 	RenderHTML(c, gin.H{})
 }

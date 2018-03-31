@@ -21,17 +21,18 @@ func init() {
 func main() {
 	router := gin.Default()
 	allowOrigins := []string{
-		"http://sugilanon.com",
 		"https://sugilanon.com",
 	}
 
 	if os.Getenv("MODE") != "production" {
-		allowOrigins = append(allowOrigins, "http://localhost:8080")
-		allowOrigins = append(allowOrigins, "http://localhost:8081")
-		allowOrigins = append(allowOrigins, "http://127.0.0.1:8080")
-		allowOrigins = append(allowOrigins, "http://127.0.0.1:8081")
+		allowOrigins = append(allowOrigins, "https://localhost:3000")
 	}
 
+	store := sessions.NewCookieStore([]byte("Lod5c5F"))
+	router.Static("/assets", "./assets")
+	router.Use(sessions.Sessions("mysession", store))
+	router.Use(gzip.Gzip(gzip.DefaultCompression))
+	router.Use(gin.Recovery())
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     allowOrigins,
 		AllowMethods:     []string{"PUT", "POST", "GET", "DELETE"},
@@ -41,26 +42,27 @@ func main() {
 		MaxAge:           12 * time.Hour,
 	}))
 
-	store := sessions.NewCookieStore([]byte("Lod5c5F"))
-
-	router.Use(sessions.Sessions("mysession", store))
-	router.Use(gzip.Gzip(gzip.DefaultCompression))
-	router.Static("/assets", "./assets")
-	router.Use(gin.Recovery())
-
 	render := ezgintemplate.New()
 	render.TemplatesDir = "app/views/"
 	render.Layout = "layouts/base"
 	render.Ext = ".tmpl"
 	render.Debug = true
-
 	router.HTMLRender = render.Init()
+
 	initializeRoutes(router)
 
-	router.Run(":3000")
+	router.RunTLS(":3000", "./certificate/server.crt", "./certificate/server.key")
 }
+
 func initializeRoutes(origRouter *gin.Engine) {
 	router := origRouter.Group("")
 
 	router.GET("/", controllers.AppIndex)
+	router.GET("/about", controllers.AboutIndex)
+	router.GET("/settings", controllers.SettingsIndex)
+	router.GET("/logout", controllers.Logout)
+	router.GET("/deactivate/:facebook_id", controllers.Deactivate)
+	router.GET("/verify/:facebook_id/:verification_token", controllers.VerifyIndex)
+
+	router.POST("/login", controllers.Login)
 }

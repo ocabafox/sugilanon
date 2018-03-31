@@ -1,0 +1,3 @@
+.uk-navbar .mobile-navbar .uk-open {
+  left: calc(100% - 13em) !important;
+}
