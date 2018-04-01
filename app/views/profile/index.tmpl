@@ -2,7 +2,14 @@
   <div class="uk-section uk-section-muted">
     <div class="uk-container">
       <h1 class="uk-heading-line">
-        <span>Hello, {{.username}}</span>
+        <span>
+          Hello, {{.appUser.Username}}
+          {{if eq .appUser.IsVerified true}}
+            <span class="uk-label uk-label-success">Verified</span>
+          {{else}}
+            <span class="uk-label uk-label-warning">Unverified</span>
+          {{end}}
+        </span>
       </h1>
       <div class="uk-card uk-card-default uk-card-body">
         <h3 class="uk-card-title">We're sad to see you go</h3>

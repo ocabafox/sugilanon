@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/XanderDwyl/sugilanon/app/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,7 +13,16 @@ func ProfileIndex(c *gin.Context) {
 		return
 	}
 
+	appUser, err := models.GetAppUserById(GetFacebookId(c))
+	if err != nil {
+		c.Redirect(302, "/")
+		c.Abort()
+
+		return
+	}
+
 	RenderHTML(c, gin.H{
-		"page": "PROFILE",
+		"page":    "PROFILE",
+		"appUser": appUser,
 	})
 }
