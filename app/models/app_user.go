@@ -48,3 +48,10 @@ func GetAppUserById(applicationId string) (AppUser, error) {
 
 	return applicationUser, err
 }
+
+func GetAppUserByUsername(appUsername string) (AppUser, error) {
+	var applicationUser AppUser
+	err := db.Debug().Model(&AppUser{}).Where("username=?", appUsername).Scan(&applicationUser).Error
+
+	return applicationUser, err
+}

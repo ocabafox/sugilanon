@@ -18,8 +18,17 @@
       <p>Please type in your username to confirm.</p>
       <form id="deactivate" action="/deactivate/{{.username}}" method="post">
         <div class="uk-margin">
-          <input class="uk-input" type="text" name="username" placeholder="Username" onkeyup="validate({{.username}});">
-          <input class="uk-margin uk-button uk-button-danger" type="submit" value="Deactivate" disabled>
+          <input
+            class="uk-input"
+            type="text"
+            name="username"
+            placeholder="Username"
+            onkeyup="validate({{.username}});">
+          <input
+            class="uk-margin uk-button uk-button-danger"
+            type="submit"
+            value="Deactivate"
+            disabled>
         </div>
       </form>
     </div>
