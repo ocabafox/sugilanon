@@ -16,13 +16,13 @@ type FacebookAccount struct {
 	UpdatedAt  *time.Time `json:"updated_at,omitempty"`
 }
 
-func (fbAccount *FacebookAccount) FacebookCreate() (FacebookAccount, error) {
+func (fbAccount *FacebookAccount) FacebookCreateUser() (FacebookAccount, error) {
 	err := db.Debug().Model(&fbAccount).Create(&fbAccount).Error
 
 	return *fbAccount, err
 }
 
-func (fbAccount *FacebookAccount) FacebookUpdate() error {
+func (fbAccount *FacebookAccount) FacebookUpdateUser() error {
 	err := db.Debug().Model(&fbAccount).Omit("facebook_id", "created_at").Updates(&fbAccount).Error
 
 	return err

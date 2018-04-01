@@ -24,7 +24,7 @@ func Deactivate(c *gin.Context) {
 	}
 
 	ClearAuth(c)
-	appUser.AppDelete()
+	appUser.AppDeleteUser()
 
 	c.Redirect(302, "/")
 	c.Abort()

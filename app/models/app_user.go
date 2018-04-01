@@ -17,19 +17,19 @@ type AppUser struct {
 	DeletedAt         *time.Time `json:"deleted_at",omitempty"`
 }
 
-func (appUser *AppUser) AppUpdate() (AppUser, error) {
+func (appUser *AppUser) AppUpdateUser() (AppUser, error) {
 	err := db.Debug().Model(&appUser).Omit("application_id", "created_at").Updates(&appUser).Error
 
 	return *appUser, err
 }
 
-func (appUser *AppUser) AppDelete() error {
+func (appUser *AppUser) AppDeleteUser() error {
 	err := db.Debug().Model(&appUser).Where("application_id=?", appUser.ApplicationId).Delete(&appUser).Error
 
 	return err
 }
 
-func AppCreate(applicationId string) (AppUser, error) {
+func AppCreateUser(applicationId string) (AppUser, error) {
 	applicationUser := AppUser{
 		ApplicationId:     applicationId,
 		Username:          "anonymouse" + strconv.Itoa(int(time.Now().UnixNano())),

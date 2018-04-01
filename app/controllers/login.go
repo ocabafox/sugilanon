@@ -16,30 +16,30 @@ func Login(c *gin.Context) {
 		Updated:    c.PostForm("updated"),
 	}
 
-	applicationUser := models.AppUser{}
-	facebookAccount, err := account.GetFacebookAccount()
+	appUser := models.AppUser{}
+	fbUser, err := account.GetFacebookAccount()
 	if err != nil {
-		facebookAccount, _ = account.FacebookCreate()
-		applicationUser, _ = models.AppCreate(account.FacebookId)
+		fbUser, _ = account.FacebookCreateUser()
+		appUser, _ = models.AppCreateUser(account.FacebookId)
 	} else {
-		applicationUser, err = models.GetAppUserById(facebookAccount.FacebookId)
+		appUser, err = models.GetAppUserById(fbUser.FacebookId)
 		if err != nil {
-			applicationUser, _ = models.AppCreate(facebookAccount.FacebookId)
+			appUser, _ = models.AppCreateUser(fbUser.FacebookId)
 		}
 
-		if account.Updated == facebookAccount.Updated {
-			account = facebookAccount
+		if account.Updated == fbUser.Updated {
+			account = fbUser
 		} else {
-			account.FacebookUpdate()
+			account.FacebookUpdateUser()
 		}
 	}
 
 	user := User{
-		IsVerified: applicationUser.IsVerified,
-		Username:   applicationUser.Username,
-		FacebookId: facebookAccount.FacebookId,
-		Name:       facebookAccount.Name,
-		Email:      facebookAccount.Email,
+		IsVerified: appUser.IsVerified,
+		Username:   appUser.Username,
+		FacebookId: fbUser.FacebookId,
+		Name:       fbUser.Name,
+		Email:      fbUser.Email,
 	}
 
 	SetAuth(c, user)
