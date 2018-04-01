@@ -5,5 +5,7 @@ import (
 )
 
 func AboutIndex(c *gin.Context) {
-	RenderHTML(c, gin.H{})
+	RenderHTML(c, gin.H{
+		"page": "ABOUT US",
+	})
 }

@@ -25,5 +25,6 @@ func VerifyIndex(c *gin.Context) {
 
 	RenderHTML(c, gin.H{
 		"successfulVerification": successfulVerification,
+		"page": "VERIFICATION PAGE",
 	})
 }
