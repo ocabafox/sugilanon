@@ -71,8 +71,8 @@ func initializeRoutes(origRouter *gin.Engine) {
 	router.GET("/about", controllers.AboutIndex)
 	router.GET("/profile", controllers.ProfileIndex)
 	router.GET("/logout", controllers.Logout)
-	router.GET("/deactivate/:facebook_id", controllers.Deactivate)
 	router.GET("/verify/:facebook_id/:verification_token", controllers.VerifyIndex)
 
 	router.POST("/login", controllers.Login)
+	router.POST("/deactivate/:username", controllers.Deactivate)
 }

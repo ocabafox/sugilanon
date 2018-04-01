@@ -8,7 +8,7 @@ import (
 // User ....
 type AppUser struct {
 	ID                int64      `gorm:"AUTO_INCREMENT" json:"id"`
-	FacebookId        string     `gorm:"type:varchar(32)" json:facebook_id"`
+	ApplicationId     string     `gorm:"type:varchar(32)" json:application_id"`
 	Username          string     `gorm:"type:varchar(32)" json:"username"`
 	VerificationToken string     `json:"verification_token,omitempty"`
 	IsVerified        bool       `json:"is_verified,omitempty"`
@@ -18,20 +18,20 @@ type AppUser struct {
 }
 
 func (appUser *AppUser) AppUpdate() (AppUser, error) {
-	err := db.Debug().Model(&appUser).Omit("facebook_id", "created_at").Updates(&appUser).Error
+	err := db.Debug().Model(&appUser).Omit("application_id", "created_at").Updates(&appUser).Error
 
 	return *appUser, err
 }
 
 func (appUser *AppUser) AppDelete() error {
-	err := db.Debug().Model(&appUser).Where("facebook_id=?", appUser.FacebookId).Delete(&appUser).Error
+	err := db.Debug().Model(&appUser).Where("application_id=?", appUser.ApplicationId).Delete(&appUser).Error
 
 	return err
 }
 
-func AppCreate(facebookId string) (AppUser, error) {
+func AppCreate(applicationId string) (AppUser, error) {
 	applicationUser := AppUser{
-		FacebookId:        facebookId,
+		ApplicationId:     applicationId,
 		Username:          "anonymouse" + strconv.Itoa(int(time.Now().UnixNano())),
 		VerificationToken: "TOKEN",
 		IsVerified:        false,
@@ -42,9 +42,9 @@ func AppCreate(facebookId string) (AppUser, error) {
 	return applicationUser, err
 }
 
-func GetAppUserById(facebookId string) (AppUser, error) {
+func GetAppUserById(applicationId string) (AppUser, error) {
 	var applicationUser AppUser
-	err := db.Debug().Model(&AppUser{}).Where("facebook_id=?", facebookId).Scan(&applicationUser).Error
+	err := db.Debug().Model(&AppUser{}).Where("application_id=?", applicationId).Scan(&applicationUser).Error
 
 	return applicationUser, err
 }

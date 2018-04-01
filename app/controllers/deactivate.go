@@ -1,7 +1,8 @@
 package controllers
 
 import (
-	"github.com/XanderDwyl/sugilanon/app/models"
+	"log"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,17 +15,18 @@ func Deactivate(c *gin.Context) {
 		return
 	}
 
-	facebookID := c.Param("facebook_id")
-	appUser, err := models.GetAppUserById(facebookID)
-	if err != nil {
-		c.Redirect(302, "/")
-		c.Abort()
+	appUsername := c.Param("username")
+	log.Println(appUsername)
+	//appUser, err := models.GetAppUserById(facebookID)
+	//if err != nil {
+	//c.Redirect(302, "/")
+	//c.Abort()
 
-		return
-	}
+	//return
+	//}
 
-	ClearAuth(c)
-	appUser.AppDelete()
+	//ClearAuth(c)
+	//appUser.AppDelete()
 
 	c.Redirect(302, "/")
 	c.Abort()
