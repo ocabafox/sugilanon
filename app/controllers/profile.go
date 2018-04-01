@@ -12,5 +12,7 @@ func ProfileIndex(c *gin.Context) {
 		return
 	}
 
-	RenderHTML(c, gin.H{})
+	RenderHTML(c, gin.H{
+		"page": "PROFILE",
+	})
 }

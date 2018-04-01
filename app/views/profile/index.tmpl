@@ -16,10 +16,10 @@
       <h2 class="uk-modal-title">Are you sure you want to proceed?</h2>
       <p>Deactivating your account will disable your profile and cannot be undone.</p>
       <p>Please type in your username to confirm.</p>
-      <form action="/deactivate/{{.username}}" method="post">
+      <form id="deactivate" action="/deactivate/{{.username}}" method="post">
         <div class="uk-margin">
-          <input class="uk-input" type="text" name="username" placeholder="Username">
-					<input class="uk-margin uk-button uk-button-danger" type="submit" value="Deactivate">
+          <input class="uk-input" type="text" name="username" placeholder="Username" onkeyup="validate({{.username}});">
+          <input class="uk-margin uk-button uk-button-danger" type="submit" value="Deactivate" disabled>
         </div>
       </form>
     </div>

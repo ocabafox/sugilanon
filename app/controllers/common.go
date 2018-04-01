@@ -55,6 +55,10 @@ func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
 	data["facebook_id"] = GetFacebookId(c)
 	data["username"] = GetAppUsername(c)
 
+	if _, ok := data["page"]; !ok {
+		data["page"] = "SUGILANON"
+	}
+
 	c.HTML(statusCode, tmpl, data)
 }
 
