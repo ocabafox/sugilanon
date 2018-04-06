@@ -109,8 +109,9 @@ func Setup() {
 
 // MigrateTables ...
 func MigrateTables() {
-	db.AutoMigrate(&AppUser{})
 	db.AutoMigrate(&FacebookAccount{})
+	db.AutoMigrate(&AppUser{})
+	db.AutoMigrate(&AppUserRole{})
 }
 
 // getenvWithDefault ...
