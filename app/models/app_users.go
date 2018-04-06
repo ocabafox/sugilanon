@@ -55,3 +55,10 @@ func GetAppUserByUsername(appUsername string) (AppUser, error) {
 
 	return applicationUser, err
 }
+
+func GetAppUsers() ([]AppUser, error) {
+	var applicationUsers []AppUser
+	err := db.Debug().Model(&AppUser{}).Scan(&applicationUsers).Error
+
+	return applicationUsers, err
+}

@@ -23,10 +23,10 @@ func (fbAccount *FacebookAccount) FacebookCreateUser() (FacebookAccount, error) 
 	return *fbAccount, err
 }
 
-func (fbAccount *FacebookAccount) FacebookUpdateUser() error {
-	err := db.Debug().Model(&fbAccount).Omit("facebook_id", "created_at").Updates(&fbAccount).Error
+func (fbAccount *FacebookAccount) FacebookUpdateUser() (FacebookAccount, error) {
+	err := db.Debug().Model(&fbAccount).Where("facebook_id=?", fbAccount.FacebookId).Omit("facebook_id", "created_at").Updates(&fbAccount).Error
 
-	return err
+	return *fbAccount, err
 }
 
 func (fbAccount *FacebookAccount) GetFacebookAccount() (FacebookAccount, error) {

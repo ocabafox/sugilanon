@@ -25,6 +25,7 @@ func Deactivate(c *gin.Context) {
 
 	ClearAuth(c)
 	appUser.AppDeleteUser()
+	models.AppDeleteUserRole(appUser.ID)
 
 	c.Redirect(302, "/")
 	c.Abort()

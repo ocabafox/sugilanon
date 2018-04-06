@@ -21,16 +21,22 @@ func Login(c *gin.Context) {
 	if err != nil {
 		fbUser, _ = account.FacebookCreateUser()
 		appUser, _ = models.AppCreateUser(account.FacebookId)
+		appUsers, _ := models.GetAppUsers()
+		if len(appUsers) == 1 {
+			models.AppCreateUserRole(appUser.ID, "admin")
+		} else {
+			models.AppCreateUserRole(appUser.ID, "user")
+		}
 	} else {
 		appUser, err = models.GetAppUserById(fbUser.FacebookId)
 		if err != nil {
 			appUser, _ = models.AppCreateUser(fbUser.FacebookId)
+
+			models.AppCreateUserRole(appUser.ID, "user")
 		}
 
-		if account.Updated == fbUser.Updated {
-			account = fbUser
-		} else {
-			account.FacebookUpdateUser()
+		if account.Updated != fbUser.Updated {
+			fbUser, _ = account.FacebookUpdateUser()
 		}
 	}
 
