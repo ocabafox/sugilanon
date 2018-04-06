@@ -20,10 +20,11 @@ func VerifyIndex(c *gin.Context) {
 		session.Save()
 
 		appUser.IsVerified = successfulVerification
-		appUser.AppUpdate()
+		appUser.AppUpdateUser()
 	}
 
 	RenderHTML(c, gin.H{
 		"successfulVerification": successfulVerification,
+		"page": "VERIFICATION PAGE",
 	})
 }

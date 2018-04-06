@@ -1,0 +1,43 @@
+{{define "content"}}
+  <div class="uk-section uk-section-muted">
+    <div class="uk-container">
+      <h1 class="uk-heading-line">
+        <span>
+          Hello, {{.appUser.Username}}
+          {{if eq .appUser.IsVerified true}}
+            <span class="uk-label uk-label-success">Verified</span>
+          {{else}}
+            <span class="uk-label uk-label-warning">Unverified</span>
+          {{end}}
+        </span>
+      </h1>
+      <div class="uk-card uk-card-default uk-card-body">
+        <h3 class="uk-card-title">We're sad to see you go</h3>
+        <a href="#deactivate-modal" class="uk-button uk-button-danger" uk-toggle>DEACTIVATE</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="deactivate-modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+      <h2 class="uk-modal-title">Are you sure you want to proceed?</h2>
+      <p>Deactivating your account will disable your profile and cannot be undone.</p>
+      <p>Please type in your username to confirm.</p>
+      <form id="deactivate" action="/deactivate/{{.username}}" method="post">
+        <div class="uk-margin">
+          <input
+            class="uk-input"
+            type="text"
+            name="username"
+            placeholder="Username"
+            onkeyup="validate({{.username}});">
+          <input
+            class="uk-margin uk-button uk-button-danger"
+            type="submit"
+            value="Deactivate"
+            disabled>
+        </div>
+      </form>
+    </div>
+  </div>
+{{end}}

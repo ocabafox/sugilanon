@@ -14,17 +14,18 @@ func Deactivate(c *gin.Context) {
 		return
 	}
 
-	facebookID := c.Param("facebook_id")
-	appUser, err := models.GetAppUserById(facebookID)
+	appUsername := c.Param("username")
+	appUser, err := models.GetAppUserByUsername(appUsername)
 	if err != nil {
-		c.Redirect(302, "/")
+		c.Redirect(302, "/profile")
 		c.Abort()
 
 		return
 	}
 
 	ClearAuth(c)
-	appUser.AppDelete()
+	appUser.AppDeleteUser()
+	models.AppDeleteUserRole(appUser.ID)
 
 	c.Redirect(302, "/")
 	c.Abort()

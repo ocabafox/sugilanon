@@ -14,18 +14,19 @@ type FacebookAccount struct {
 	Updated    string     `gorm:"type:varchar(130)" json:"updated"`
 	CreatedAt  *time.Time `json:"created_at,omitempty"`
 	UpdatedAt  *time.Time `json:"updated_at,omitempty"`
+	DeletedAt  *time.Time `json:"deleted_at",omitempty"`
 }
 
-func (fbAccount *FacebookAccount) FacebookCreate() (FacebookAccount, error) {
+func (fbAccount *FacebookAccount) FacebookCreateUser() (FacebookAccount, error) {
 	err := db.Debug().Model(&fbAccount).Create(&fbAccount).Error
 
 	return *fbAccount, err
 }
 
-func (fbAccount *FacebookAccount) FacebookUpdate() error {
-	err := db.Debug().Model(&fbAccount).Omit("facebook_id", "created_at").Updates(&fbAccount).Error
+func (fbAccount *FacebookAccount) FacebookUpdateUser() (FacebookAccount, error) {
+	err := db.Debug().Model(&fbAccount).Where("facebook_id=?", fbAccount.FacebookId).Omit("facebook_id", "created_at").Updates(&fbAccount).Error
 
-	return err
+	return *fbAccount, err
 }
 
 func (fbAccount *FacebookAccount) GetFacebookAccount() (FacebookAccount, error) {

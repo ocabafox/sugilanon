@@ -53,6 +53,11 @@ func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
 	data["is_login"] = IsLogin(c)
 	data["is_verified"] = IsVerified(c)
 	data["facebook_id"] = GetFacebookId(c)
+	data["username"] = GetAppUsername(c)
+
+	if _, ok := data["page"]; !ok {
+		data["page"] = "SUGILANON"
+	}
 
 	c.HTML(statusCode, tmpl, data)
 }
@@ -93,6 +98,19 @@ func GetFacebookId(c *gin.Context) string {
 	facebookId := session.Get("facebook_id")
 	if facebookId != nil {
 		val, ok := facebookId.(string)
+		if ok {
+			return val
+		}
+	}
+
+	return ""
+}
+
+func GetAppUsername(c *gin.Context) string {
+	session := sessions.Default(c)
+	appUsername := session.Get("username")
+	if appUsername != nil {
+		val, ok := appUsername.(string)
 		if ok {
 			return val
 		}

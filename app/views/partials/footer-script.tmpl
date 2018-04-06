@@ -1,4 +1,12 @@
 {{define "partials/footer_script"}}
   <script src="/assets/js/jquery-3.3.1.min.js"></script>
   <script src="/assets/js/uikit.min.js"></script>
+
+  {{if eq .page "PROFILE"}}
+    <script src="/assets/js/app/deactivate.js"></script>
+  {{end}}
+
+  {{if eq .page "VERIFICATION PAGE"}}
+    <script src="/assets/js/app/verify.js"></script>
+  {{end}}
 {{end}}
