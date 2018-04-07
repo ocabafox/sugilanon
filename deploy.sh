@@ -1,5 +1,6 @@
 #!/bin/sh
 
+`chmod 400 ./sugilanon_key.pem`
 `ssh -i ./sugilanon_key.pem ec2-user@$PRIVATE_DNS`
 
 # sudo yum update -y
