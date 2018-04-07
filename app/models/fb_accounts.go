@@ -10,7 +10,6 @@ type FacebookAccount struct {
 	Email      string     `gorm:"type:varchar(130)" json:"email"`
 	Link       string     `gorm:"type:varchar(130)" json:"link"`
 	Gender     string     `gorm:"type:varchar(130)" json:"gender,omitempty"`
-	Website    string     `gorm:"type:varchar(130)" json:"website,omitempty"`
 	Updated    string     `gorm:"type:varchar(130)" json:"updated"`
 	CreatedAt  *time.Time `json:"created_at,omitempty"`
 	UpdatedAt  *time.Time `json:"updated_at,omitempty"`
