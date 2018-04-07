@@ -41,6 +41,7 @@ func Login(c *gin.Context) {
 	}
 
 	user := User{
+		AppUserId:  appUser.ID,
 		IsVerified: appUser.IsVerified,
 		Username:   appUser.Username,
 		FacebookId: fbUser.FacebookId,
