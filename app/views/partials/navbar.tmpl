@@ -9,10 +9,10 @@
           <ul class="uk-navbar-nav uk-visible@m desktop-navbar">
             <li><a href="/about">ABOUT US</a></li>
             {{if eq .is_login false}}
-              <li><a href="#" onclick="login();">LOGIN</a></li>
+              <li><a onclick="login();">LOGIN</a></li>
             {{else}}
               <li><a href="/profile">PROFILE</a></li>
-              <li><a href="#" onclick="logout();">LOGOUT</a></li>
+              <li><a onclick="logout();">LOGOUT</a></li>
             {{end}}
           </ul>
           <ul class="uk-navbar-nav uk-hidden@m mobile-navbar">
@@ -22,10 +22,10 @@
                 <ul class="uk-nav uk-navbar-dropdown-nav">
                   <li><a href="/about">ABOUT US</a></li>
                   {{if eq .is_login false}}
-                    <li><a href="#" onclick="login();">LOGIN</a></li>
+                    <li><a onclick="login();">LOGIN</a></li>
                   {{else}}
                     <li><a href="/profile">PROFILE</a></li>
-                    <li><a href="#" onclick="logout();">LOGOUT</a></li>
+                    <li><a onclick="logout();">LOGOUT</a></li>
                   {{end}}
                 </ul>
               </div>
