@@ -17,6 +17,6 @@ RUN CGO_ENABLED=0 go build -o webapp main.go
 FROM scratch
 COPY --from=0 /go/src/github.com/XanderDwyl/sugilanon/ .
 
-EXPOSE 3000
+EXPOSE 80 3000
 
 ENTRYPOINT ["/webapp"]

@@ -38,3 +38,5 @@ Icon?
 tmp/*
 vendor/*
 glide.lock
+
+prepare_golang_box.sh
