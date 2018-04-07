@@ -1,12 +1,3 @@
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '1618996761552073',
-    cookie     : true,
-    xfbml      : true,
-    version    : 'v2.12'
-  });
-};
-
 function login() {
   FB.login(function(response) {
     if (response.status === 'connected') {
@@ -17,8 +8,8 @@ function login() {
             name: response.name,
             email: response.email,
             link: response.link,
-            gender: response.gender || '',
-            website: response.website || '',
+            gender: response.gender,
+            website: response.website,
             updated: response.updated_time
           }).done(function() {
             location.reload();
