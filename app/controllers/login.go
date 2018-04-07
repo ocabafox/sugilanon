@@ -12,7 +12,6 @@ func Login(c *gin.Context) {
 		Email:      c.PostForm("email"),
 		Link:       c.PostForm("link"),
 		Gender:     c.PostForm("gender"),
-		Website:    c.PostForm("website"),
 		Updated:    c.PostForm("updated"),
 	}
 
@@ -28,7 +27,7 @@ func Login(c *gin.Context) {
 			models.AppCreateUserRole(appUser.ID, "user")
 		}
 	} else {
-		appUser, err = models.GetAppUserById(fbUser.FacebookId)
+		appUser, err = models.GetAppUserByFacebookId(fbUser.FacebookId)
 		if err != nil {
 			appUser, _ = models.AppCreateUser(fbUser.FacebookId)
 
@@ -41,6 +40,7 @@ func Login(c *gin.Context) {
 	}
 
 	user := User{
+		AppUserId:  appUser.ID,
 		IsVerified: appUser.IsVerified,
 		Username:   appUser.Username,
 		FacebookId: fbUser.FacebookId,

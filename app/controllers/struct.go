@@ -1,7 +1,8 @@
 package controllers
 
 type User struct {
-	IsVerified bool   `json:"is_verified,omitempty"`
+	AppUserId  int64  `json:"app_user_id"`
+	IsVerified bool   `json:"is_verified"`
 	Username   string `json:"username"`
 	FacebookId string `json:"facebook_id"`
 	Name       string `json:"name"`

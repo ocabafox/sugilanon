@@ -65,14 +65,22 @@ func main() {
 }
 
 func initializeRoutes(origRouter *gin.Engine) {
+	origRouter.NoRoute(controllers.NoRoute)
+
 	router := origRouter.Group("")
+	{
+		router.GET("/", controllers.AppIndex)
+		router.GET("/about", controllers.AboutIndex)
+		router.GET("/profile", controllers.ProfileIndex)
+		router.GET("/logout", controllers.Logout)
+		router.GET("/verify/:facebook_id/:verification_token", controllers.VerifyIndex)
 
-	router.GET("/", controllers.AppIndex)
-	router.GET("/about", controllers.AboutIndex)
-	router.GET("/profile", controllers.ProfileIndex)
-	router.GET("/logout", controllers.Logout)
-	router.GET("/verify/:facebook_id/:verification_token", controllers.VerifyIndex)
+		router.POST("/login", controllers.Login)
+		router.POST("/deactivate/:username", controllers.Deactivate)
+	}
 
-	router.POST("/login", controllers.Login)
-	router.POST("/deactivate/:username", controllers.Deactivate)
+	admin := origRouter.Group("/admin")
+	{
+		admin.GET("/", controllers.AdminIndex)
+	}
 }

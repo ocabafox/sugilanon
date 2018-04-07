@@ -1,29 +1,19 @@
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '1618996761552073',
-    cookie     : true,
-    xfbml      : true,
-    version    : 'v2.12'
-  });
-};
-
 function login() {
   FB.login(function(response) {
     if (response.status === 'connected') {
-      FB.api('/me?fields=id,name,email,link,gender,website,updated_time', function(response) {
-	if (response && !response.error) {
-	  $.post("/login", {
-	    facebook_id: response.id,
-	    name: response.name,
-	    email: response.email,
-	    link: response.link,
-	    gender: response.gender || '',
-	    website: response.website || '',
-	    updated: response.updated_time
-	  }).done(function() {
-	    location.reload();
-	  });
-	}
+      FB.api('/me?fields=id,name,email,link,gender,updated_time', function(response) {
+        if (response && !response.error) {
+          $.post("/login", {
+            facebook_id: response.id,
+            name: response.name,
+            email: response.email,
+            link: response.link,
+            gender: response.gender,
+            updated: response.updated_time
+          }).done(function() {
+            location.reload();
+          });
+        }
       })
     }
   });
@@ -33,9 +23,9 @@ function logout() {
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
       FB.logout(function(response) {
-	$.get("/logout").done(function() {
-	  location.reload();
-	});
+        $.get("/logout").done(function() {
+          location.reload();
+        });
       });
     }
   });

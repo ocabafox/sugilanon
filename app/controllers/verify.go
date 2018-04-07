@@ -11,7 +11,7 @@ func VerifyIndex(c *gin.Context) {
 	verificationToken := c.Param("verification_token")
 
 	successfulVerification := false
-	appUser, _ := models.GetAppUserById(facebookId)
+	appUser, _ := models.GetAppUserByFacebookId(facebookId)
 	if !appUser.IsVerified && appUser.VerificationToken == verificationToken {
 		successfulVerification = true
 

@@ -13,7 +13,7 @@ func ProfileIndex(c *gin.Context) {
 		return
 	}
 
-	appUser, err := models.GetAppUserById(GetFacebookId(c))
+	appUser, err := models.GetAppUserByFacebookId(GetFacebookId(c))
 	if err != nil {
 		c.Redirect(302, "/")
 		c.Abort()

@@ -106,6 +106,19 @@ func GetFacebookId(c *gin.Context) string {
 	return ""
 }
 
+func GetAppUserId(c *gin.Context) int64 {
+	session := sessions.Default(c)
+	appUserId := session.Get("app_user_id")
+	if appUserId != nil {
+		val, ok := appUserId.(int64)
+		if ok {
+			return val
+		}
+	}
+
+	return 0
+}
+
 func GetAppUsername(c *gin.Context) string {
 	session := sessions.Default(c)
 	appUsername := session.Get("username")
@@ -123,6 +136,7 @@ func SetAuth(c *gin.Context, user User) {
 	session := sessions.Default(c)
 
 	session.Set("is_login", 1)
+	session.Set("app_user_id", user.AppUserId)
 	session.Set("is_verified", user.IsVerified)
 	session.Set("facebook_id", user.FacebookId)
 	session.Set("username", user.Username)
@@ -135,10 +149,18 @@ func ClearAuth(c *gin.Context) {
 	session := sessions.Default(c)
 
 	session.Delete("is_login")
+	session.Delete("app_user_id")
 	session.Delete("is_verified")
 	session.Delete("facebook_id")
 	session.Delete("username")
 	session.Delete("name")
 	session.Delete("email")
 	session.Save()
+}
+
+func NoRoute(c *gin.Context) {
+	c.Redirect(302, "/")
+	c.Abort()
+
+	return
 }
