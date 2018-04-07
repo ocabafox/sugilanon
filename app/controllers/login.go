@@ -12,7 +12,6 @@ func Login(c *gin.Context) {
 		Email:      c.PostForm("email"),
 		Link:       c.PostForm("link"),
 		Gender:     c.PostForm("gender"),
-		Website:    c.PostForm("website"),
 		Updated:    c.PostForm("updated"),
 	}
 

@@ -1,7 +1,7 @@
 function login() {
   FB.login(function(response) {
     if (response.status === 'connected') {
-      FB.api('/me?fields=id,name,email,link,gender,website,updated_time', function(response) {
+      FB.api('/me?fields=id,name,email,link,gender,updated_time', function(response) {
         if (response && !response.error) {
           $.post("/login", {
             facebook_id: response.id,
@@ -9,7 +9,6 @@ function login() {
             email: response.email,
             link: response.link,
             gender: response.gender,
-            website: response.website,
             updated: response.updated_time
           }).done(function() {
             location.reload();
