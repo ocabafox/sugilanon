@@ -28,7 +28,7 @@ func Login(c *gin.Context) {
 			models.AppCreateUserRole(appUser.ID, "user")
 		}
 	} else {
-		appUser, err = models.GetAppUserById(fbUser.FacebookId)
+		appUser, err = models.GetAppUserByFacebookId(fbUser.FacebookId)
 		if err != nil {
 			appUser, _ = models.AppCreateUser(fbUser.FacebookId)
 

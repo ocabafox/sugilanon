@@ -6,5 +6,7 @@ import (
 
 // AppIndex ...
 func AppIndex(c *gin.Context) {
-	RenderHTML(c, gin.H{})
+	RenderHTML(c, gin.H{
+		"page": "HOME",
+	})
 }
