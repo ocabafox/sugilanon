@@ -42,7 +42,7 @@ func AppCreateUser(applicationId string) (AppUser, error) {
 	return applicationUser, err
 }
 
-func GetAppUserById(applicationId string) (AppUser, error) {
+func GetAppUserByFacebookId(applicationId string) (AppUser, error) {
 	var applicationUser AppUser
 	err := db.Debug().Model(&AppUser{}).Where("application_id=?", applicationId).Scan(&applicationUser).Error
 

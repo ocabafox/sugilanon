@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="index, follow, noarchive, noimageindex" />
-    <title>{{.page}}</title>
+    <title>{{.page}} | SUGILANON</title>
 
     {{template "partials/header_style"}}
   </head>
 
   <body>
-		{{template "partials/fb"}}
+    {{template "partials/fb" .}}
 
     <div class="uk-offcanvas-content">
       {{template "partials/navbar" .}}

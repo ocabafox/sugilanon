@@ -30,3 +30,10 @@ func AppDeleteUserRole(appUserId int64) error {
 
 	return err
 }
+
+func GetAppUserRoleByAppUserId(appUserId int64) (AppUserRole, error) {
+	var applicationUserRole AppUserRole
+	err := db.Debug().Model(&AppUserRole{}).Where("app_user_id=?", appUserId).Scan(&applicationUserRole).Error
+
+	return applicationUserRole, err
+}
