@@ -28,6 +28,7 @@ func main() {
 	router := gin.Default()
 	allowOrigins := []string{
 		"https://sugilanon.com",
+		"https://www.sugilanon.com",
 	}
 
 	if os.Getenv("MODE") != "production" {
