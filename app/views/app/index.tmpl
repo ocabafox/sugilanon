@@ -15,29 +15,14 @@
   <div class="uk-section uk-section-muted">
     <div class="uk-container">
       <ul uk-tab>
-	<li class="uk-active" uk-switcher><a href="#">Pakighinabi</a></li>
-	<li><a href="#">Sugilanon</a></li>
+	<li class="uk-active" uk-switcher><a href="#">Question</a></li>
+	<li><a href="#">Storyline</a></li>
       </ul>
       <ul class="uk-switcher uk-margin">
 	<li>
-	  <div class="question">
-	    <div class="q-header">
-	      <div class="qoutes">
-		<div class="qoutes-icon"></div>
-	      </div>
-	      <div class="q-header-details">
-		<div class="posted_date">
-		  <span>Posted Date</span>: </div>
-		<div class="posted_type">
-		  <span>Type</span>: </div>
-	      </div>
-	    </div>
-	    <div class="q-body">
-	      Dong Abloy, Kapila naka uyab?
-	    </div>
-	  </div>
+	  {{template "partials/question" .}}
 	</li>
-	<li>Hello!</li>
+	      <li>Hello!</li>
       </ul>
     </div>
   </div>
