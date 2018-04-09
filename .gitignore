@@ -40,4 +40,3 @@ vendor/*
 glide.lock
 
 prepare_golang_box.sh
-deploy.sh
