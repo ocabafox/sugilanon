@@ -1,4 +1,6 @@
 machine:
+  services:
+    - docker
   environment:
     IMPORT_PATH: github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
     PROJECT_PATH: $HOME/.go_workspace/src/$IMPORT_PATH
@@ -22,8 +24,8 @@ test:
   override:
     - cd $PROJECT_PATH && go test ./...
 
-# deployment:
-#   production:
-#     branch: master
-#     commands:
-#       - ./deploy.sh
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./deploy.sh
