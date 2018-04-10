@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t xanderdwyl/sugilanon
+docker build -t xanderdwyl/sugilanon .
