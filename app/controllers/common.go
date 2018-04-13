@@ -50,6 +50,7 @@ func RenderHTML(c *gin.Context, data gin.H) {
 
 // RenderTemplate ...
 func RenderTemplate(c *gin.Context, tmpl string, data gin.H, statusCode int) {
+	data["fbApplicationId"] = os.Getenv("FB_APP_ID")
 	data["is_login"] = IsLogin(c)
 	data["is_verified"] = IsVerified(c)
 	data["facebook_id"] = GetFacebookId(c)
