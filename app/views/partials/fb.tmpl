@@ -1,6 +1,6 @@
 {{define "partials/fb"}}
-  <script src="/assets/js/fb.js"></script>
   <script type="text/javascript">
-    window.fbAsyncInit=function(){FB.init({appId:{{.fbApplicationId}},cookie:!0,xfbml:!0,version:"v2.12"})};
+    var appId = {{.fbApplicationId}};
   </script>
+  <script src="/assets/js/fb.js"></script>
 {{end}}

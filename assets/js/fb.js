@@ -1,3 +1,12 @@
+window.fbAsyncInit = function() {
+  FB.init({
+    appId: appId,
+    cookie: true,
+    xfbml: true,
+    version: 'v2.12'
+  });
+};
+
 function login() {
   FB.login(function(response) {
     if (response.status === 'connected') {
