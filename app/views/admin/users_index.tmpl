@@ -2,6 +2,10 @@
   <div class="uk-container">
     {{template "partials/admin-navbar"}}
 
-    <h1>HELLO</h1>
+		<ul class="uk-list uk-list-large uk-list-striped">
+			{{range $fbAccounts := .fbAccounts}}
+				<li>{{$fbAccounts.Name}}</li>
+			{{end}}
+		</ul>
   </div>
 {{end}}

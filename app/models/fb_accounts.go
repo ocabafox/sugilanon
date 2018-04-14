@@ -34,3 +34,10 @@ func (fbAccount *FacebookAccount) GetFacebookAccount() (FacebookAccount, error) 
 
 	return facebookAccount, err
 }
+
+func GetFacebookAccounts() ([]FacebookAccount, error) {
+	var facebookAccounts []FacebookAccount
+	err := db.Debug().Model(&FacebookAccount{}).Scan(&facebookAccounts).Error
+
+	return facebookAccounts, err
+}
