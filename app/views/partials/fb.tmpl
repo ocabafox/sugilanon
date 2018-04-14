@@ -1,6 +1,3 @@
 {{define "partials/fb"}}
-  <script type="text/javascript">
-    var appId = {{.fbApplicationId}};
-  </script>
-  <script src="/assets/js/fb.js"></script>
+  <script id="app-id" src="/assets/js/fb.js" data-app-id="{{.fb_app_id}}"></script>
 {{end}}

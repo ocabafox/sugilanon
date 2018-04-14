@@ -1,0 +1,20 @@
+{{define "partials/story"}}
+  {{if .is_login}}
+    <form action="/story" method="post">
+      <fieldset class="uk-fieldset">
+        <legend class="uk-legend">Share your story</legend>
+        <div class="uk-margin">
+          <input class="uk-input uk-form-width-medium" type="text" placeholder="Title">
+        </div>
+        <div class="uk-margin">
+          <textarea class="uk-textarea" rows="5" placeholder="Your Story"></textarea>
+        </div>
+        <button class="uk-button uk-button-primary">Submit</button>
+      </fieldset>
+    </form>
+  {{else}}
+    <div class="story">
+      <h3>STORY CONTENT HERE</h3>
+    </div>
+  {{end}}
+{{end}}

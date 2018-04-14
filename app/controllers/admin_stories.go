@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AdminIndex(c *gin.Context) {
+func AdminStoriesIndex(c *gin.Context) {
 	RenderHTML(c, gin.H{
-		"page": "QUESTIONS | ADMIN",
+		"page": "STORIES | ADMIN",
 	})
 }

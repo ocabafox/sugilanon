@@ -1,0 +1,18 @@
+{{define "partials/admin-navbar"}}
+  <nav class="uk-navbar" uk-navbar="mode: click">
+    <div class="uk-navbar-left">
+      <ul class="uk-navbar-nav">
+        <li>
+          <a href="#">Manage</a>
+          <div class="uk-navbar-dropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li><a href="/admin">Questions</a></li>
+              <li><a href="/admin/stories">Stories</a></li>
+              <li><a href="/admin/users">Users</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+{{end}}

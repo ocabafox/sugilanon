@@ -33,11 +33,9 @@ func Login(c *gin.Context) {
 
 			models.AppCreateUserRole(appUser.ID, "user")
 		}
-
-		if account.Updated != fbUser.Updated {
-			fbUser, _ = account.FacebookUpdateUser()
-		}
 	}
+
+	fbUser, _ = account.FacebookUpdateUser()
 
 	user := User{
 		AppUserId:  appUser.ID,

@@ -1,6 +1,6 @@
 window.fbAsyncInit = function() {
   FB.init({
-    appId: appId,
+    appId: $('#app-id').data('app-id'),
     cookie: true,
     xfbml: true,
     version: 'v2.12'
@@ -20,11 +20,13 @@ function login() {
             gender: response.gender,
             updated: response.updated_time
           }).done(function() {
-            location.reload();
+            window.location.replace('/');
           });
         }
       })
     }
+  }, {
+    scope: 'email, public_profile'
   });
 }
 
@@ -33,7 +35,7 @@ function logout() {
     if (response.status === 'connected') {
       FB.logout(function(response) {
         $.get("/logout").done(function() {
-          location.reload();
+          window.location.replace('/');
         });
       });
     }
