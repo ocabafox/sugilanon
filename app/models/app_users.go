@@ -1,8 +1,11 @@
 package models
 
 import (
+	"encoding/json"
 	"strconv"
 	"time"
+
+	"github.com/XanderDwyl/sugilanon/app/libs/mycache"
 )
 
 // User ....
@@ -53,7 +56,21 @@ func AppCreateUser(applicationId string) (AppUser, error) {
 
 func GetAppUserByFacebookId(applicationId string) (AppUser, error) {
 	var applicationUser AppUser
-	err := db.Debug().Model(&AppUser{}).Where("application_id=?", applicationId).Scan(&applicationUser).Error
+	var err error
+
+	key := "appUser"
+	cache, err := mycache.Get(key)
+	if err != nil {
+		err = db.Debug().Model(&AppUser{}).Where("application_id=?", applicationId).Scan(&applicationUser).Error
+
+		applicationUserJSON, _ := json.Marshal(applicationUser)
+		_, err := mycache.Set(key, string(applicationUserJSON), 300)
+		if err != nil {
+			return applicationUser, err
+		}
+	} else {
+		err = json.Unmarshal([]byte(cache), &applicationUser)
+	}
 
 	return applicationUser, err
 }

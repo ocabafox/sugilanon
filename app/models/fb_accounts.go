@@ -46,7 +46,7 @@ func (fbAccount *FacebookAccount) GetFacebookAccount() (FacebookAccount, error) 
 			return facebookAccount, err
 		}
 	} else {
-		err = json.Unmarshal([]byte(cache), facebookAccount)
+		err = json.Unmarshal([]byte(cache), &facebookAccount)
 	}
 
 	return facebookAccount, err
