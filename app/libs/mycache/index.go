@@ -1,136 +1,143 @@
 package mycache
 
-// import (
-// 	"bufio"
-// 	"bytes"
-// 	"compress/gzip"
-// 	"os"
+import (
+	"bufio"
+	"bytes"
+	"compress/gzip"
+	"os"
 
-// 	"github.com/bradfitz/gomemcache/memcache"
-// )
+	"github.com/bradfitz/gomemcache/memcache"
+)
 
-// const compress = true
+const compress = true
 
-// var mc *memcache.Client
-// var memcachedHostStr string
-// var prefix = "cache"
+var mc *memcache.Client
+var memcachedHostStr string
+var prefix = "cache"
 
-// func init() {
-// 	memcacheHost := getenvWithDefault("MEMCACHED_HOST", "localhost")
-// 	memcachePort := getenvWithDefault("MEMCACHED_POST", "11211")
+func init() {
+	memcacheHost := os.Getenv("MEMCACHED_HOST")
+	if memcacheHost == "" {
+		memcacheHost = "localhost"
+	}
 
-// 	memcachedHostStr = memcacheHost + ":" + memcachePort
-// 	mc = memcache.New(memcachedHostStr)
-// }
+	memcachePort := os.Getenv("MEMCACHED_POST")
+	if memcachePort == "" {
+		memcachePort = "11211"
+	}
 
-// func GetHostStr() string {
-// 	return memcachedHostStr
-// }
+	memcachedHostStr = memcacheHost + ":" + memcachePort
+	mc = memcache.New(memcachedHostStr)
+}
 
-// func Get(suffix string) (string, error) {
-// 	var key string
+func GetHostStr() string {
+	return memcachedHostStr
+}
 
-// 	if compress {
-// 		key = prefix + ".c." + suffix
-// 	} else {
-// 		key = prefix + "." + suffix
-// 	}
+func Get(suffix string) (string, error) {
+	var key string
 
-// 	it, err := mc.Get(key)
+	if compress {
+		key = prefix + ".c." + suffix
+	} else {
+		key = prefix + "." + suffix
+	}
 
-// 	if err != nil {
-// 		return "", err
-// 	}
+	it, err := mc.Get(key)
 
-// 	if compress {
-// 		return gzuncompress(it.Value)
-// 	}
+	if err != nil {
+		return "", err
+	}
 
-// 	return string(it.Value), nil
-// }
+	if compress {
+		return gzuncompress(it.Value)
+	}
 
-// func Set(suffix string, val string, ttl int64) (bool, error) {
-// 	var key string
-// 	var err error
+	return string(it.Value), nil
+}
 
-// 	if compress {
-// 		key = prefix + ".c." + suffix
-// 		err = mc.Set(&memcache.Item{
-// 			Key:        key,
-// 			Value:      gzcompress(val),
-// 			Expiration: int32(ttl),
-// 		})
-// 	} else {
-// 		key = prefix + "." + suffix
-// 		err = mc.Set(&memcache.Item{
-// 			Key:        key,
-// 			Value:      []byte(val),
-// 			Expiration: int32(ttl),
-// 		})
-// 	}
+func Set(suffix string, val string, ttl int64) (bool, error) {
+	var key string
+	var err error
 
-// 	if err != nil {
-// 		return false, err
-// 	}
+	if compress {
+		key = prefix + ".c." + suffix
+		err = mc.Set(&memcache.Item{
+			Key:        key,
+			Value:      gzcompress(val),
+			Expiration: int32(ttl),
+		})
+	} else {
+		key = prefix + "." + suffix
+		err = mc.Set(&memcache.Item{
+			Key:        key,
+			Value:      []byte(val),
+			Expiration: int32(ttl),
+		})
+	}
 
-// 	return true, nil
-// }
+	if err != nil {
+		return false, err
+	}
 
-// func Delete(suffix string) (bool, error) {
-// 	key := prefix + "." + suffix
+	return true, nil
+}
 
-// 	if compress {
-// 		key = prefix + ".c." + suffix
-// 	}
+func Delete(suffix string) (bool, error) {
+	key := prefix + "." + suffix
 
-// 	err := mc.Delete(key)
+	if compress {
+		key = prefix + ".c." + suffix
+	}
 
-// 	if err != nil {
-// 		return false, err
-// 	}
+	err := mc.Delete(key)
 
-// 	return true, nil
-// }
+	if err != nil {
+		return false, err
+	}
 
-// func gzcompress(str string) []byte {
-// 	var b bytes.Buffer
+	return true, nil
+}
 
-// 	gz := gzip.NewWriter(&b)
+func gzcompress(str string) []byte {
+	var b bytes.Buffer
 
-// 	if _, err := gz.Write([]byte(str)); err != nil {
-// 		return []byte("")
-// 	}
+	gz := gzip.NewWriter(&b)
 
-// 	if err := gz.Flush(); err != nil {
-// 		return []byte("")
-// 	}
+	if _, err := gz.Write([]byte(str)); err != nil {
+		return []byte("")
+	}
 
-// 	if err := gz.Close(); err != nil {
-// 		return []byte("")
-// 	}
+	if err := gz.Flush(); err != nil {
+		return []byte("")
+	}
 
-// 	return b.Bytes()
-// }
+	if err := gz.Close(); err != nil {
+		return []byte("")
+	}
 
-// func gzuncompress(b []byte) (string, error) {
-// 	bb := bytes.NewBuffer(b)
-// 	zipread, _ := gzip.NewReader(bb)
+	return b.Bytes()
+}
 
-// 	defer zipread.Close()
+func gzuncompress(b []byte) (string, error) {
+	bb := bytes.NewBuffer(b)
+	zipread, _ := gzip.NewReader(bb)
 
-// 	reader := bufio.NewReader(zipread)
-// 	ret := ""
+	defer zipread.Close()
 
-// 	var part []byte
-// 	var err error
+	reader := bufio.NewReader(zipread)
+	ret := ""
 
-// 	for {
-// 		if part, _, err = reader.ReadLine(); err != nil {
-// 			break
-// 		}
+	var part []byte
+	var err error
 
-// 		ret += string(part)
-// 	}
+	for {
+		if part, _, err = reader.ReadLine(); err != nil {
+			break
+		}
 
-// 	return ret, nil
-// }
+		ret += string(part)
+	}
+
+	return ret, nil
+}
