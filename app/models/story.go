@@ -1,6 +1,11 @@
 package models
 
-import "time"
+import (
+	"encoding/json"
+	"time"
+
+	"github.com/XanderDwyl/sugilanon/app/libs/mycache"
+)
 
 type Story struct {
 	ID        int64      `gorm:"AUTO_INCREMENT" json:"id"`
@@ -18,4 +23,21 @@ func (story *Story) Create() error {
 
 func (story *Story) Delete() error {
 	return db.Debug().Model(&story).Where("id=?", story.ID).Delete(&story).Error
+}
+
+func GetStories() (*[]Story, error) {
+	var stories []Story
+	key := "stories"
+	storiesCache, err := mycache.Get(key)
+	if err != nil {
+		err = db.Debug().Raw("SELECT * FROM stories").Scan(&stories).Error
+		storiesJSON, _ := json.Marshal(&stories)
+		_, err := mycache.Set(key, string(storiesJSON), 1800)
+		if err != nil {
+			return &stories, err
+		}
+	} else {
+		err = json.Unmarshal([]byte(storiesCache), &stories)
+	}
+	return &stories, err
 }
