@@ -64,7 +64,7 @@ func GetAppUserByFacebookId(applicationId string) (AppUser, error) {
 		err = db.Debug().Model(&AppUser{}).Where("application_id=?", applicationId).Scan(&applicationUser).Error
 
 		applicationUserJSON, _ := json.Marshal(applicationUser)
-		_, err := mycache.Set(key, string(applicationUserJSON), 300)
+		_, err := mycache.Set(key, string(applicationUserJSON), 1800)
 		if err != nil {
 			return applicationUser, err
 		}

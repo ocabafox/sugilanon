@@ -41,7 +41,7 @@ func (fbAccount *FacebookAccount) GetFacebookAccount() (FacebookAccount, error) 
 		err = db.Debug().Model(&FacebookAccount{}).Where("facebook_id=?", fbAccount.FacebookId).Scan(&facebookAccount).Error
 
 		facebookAccountJSON, _ := json.Marshal(facebookAccount)
-		_, err := mycache.Set(key, string(facebookAccountJSON), 300)
+		_, err := mycache.Set(key, string(facebookAccountJSON), 1800)
 		if err != nil {
 			return facebookAccount, err
 		}

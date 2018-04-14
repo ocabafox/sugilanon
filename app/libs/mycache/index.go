@@ -21,7 +21,7 @@ func init() {
 		memcacheHost = "localhost"
 	}
 
-	memcachePort := os.Getenv("MEMCACHED_POST")
+	memcachePort := os.Getenv("MEMCACHED_PORT")
 	if memcachePort == "" {
 		memcachePort = "11211"
 	}
