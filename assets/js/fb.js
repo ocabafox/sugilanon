@@ -1,6 +1,6 @@
 window.fbAsyncInit = function() {
   FB.init({
-    appId: appId,
+    appId: $('#app-id').data('app-id'),
     cookie: true,
     xfbml: true,
     version: 'v2.12'

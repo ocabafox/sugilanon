@@ -157,6 +157,11 @@ func ClearAuth(c *gin.Context) {
 	session.Delete("name")
 	session.Delete("email")
 	session.Save()
+
+	c.Redirect(302, "/")
+	c.Abort()
+
+	return
 }
 
 func NoRoute(c *gin.Context) {
