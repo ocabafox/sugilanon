@@ -15,14 +15,33 @@
   <div class="uk-section uk-section-muted">
     <div class="uk-container">
       <ul uk-tab>
-	<li class="uk-active" uk-switcher><a href="#">Question</a></li>
-	<li><a href="#">Storyline</a></li>
+				<li class="uk-active" uk-switcher><a href="#">Question</a></li>
+				<li><a href="#">Storyline</a></li>
       </ul>
       <ul class="uk-switcher uk-margin">
-	<li>
-	  {{template "partials/question" .}}
-	</li>
-	      <li>Hello!</li>
+				<li>
+				{{template "partials/question" .}}
+				</li>
+				{{if .is_login}}
+		<li>
+						<form action="/story" method="post">
+							<fieldset class="uk-fieldset">
+									<legend class="uk-legend">Share your story</legend>
+									<div class="uk-margin">
+										<input class="uk-input uk-form-width-medium" type="text" placeholder="Title">
+									</div>
+
+									<div class="uk-margin">
+											<textarea class="uk-textarea" rows="5" placeholder="Story..."></textarea>
+									</div>
+
+									<p uk-margin>
+										<button class="uk-button uk-button-primary">Submit</button>
+									</p>
+							</fieldset>
+						</form>
+					</li>
+				{{end}}
       </ul>
     </div>
   </div>
