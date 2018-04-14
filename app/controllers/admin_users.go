@@ -6,7 +6,7 @@ import (
 )
 
 func AdminUsersIndex(c *gin.Context) {
-	appUsers, err := models.GetAppUsers()
+	appUsersByRole, err := models.GetAppUsersByRole()
 	if err != nil {
 		c.Redirect(302, "/admin")
 		c.Abort()
@@ -16,35 +16,23 @@ func AdminUsersIndex(c *gin.Context) {
 
 	var admins []User
 	var users []User
-	for _, appUsersValue := range appUsers {
-		fbUser, err := models.GetFacebookAccountByFacebookId(appUsersValue.ApplicationId)
-		if err != nil {
-			c.Redirect(302, "/admin")
-			c.Abort()
-
-			return
-		}
-
-		appUserRole, err := models.GetAppUserRoleByAppUserId(appUsersValue.ID)
-		if err != nil {
-			c.Redirect(302, "/admin")
-			c.Abort()
-
-			return
-		}
-
-		user := User{
-			IsVerified: appUsersValue.IsVerified,
-			Username:   appUsersValue.Username,
-			Name:       fbUser.Name,
-			Email:      fbUser.Email,
-			Link:       fbUser.Link,
-		}
-
-		if appUserRole.Role == "admin" {
-			admins = append(admins, user)
+	for _, usersValue := range appUsersByRole {
+		if usersValue.Role == "admin" {
+			admins = append(admins, User{
+				IsVerified: usersValue.IsVerified,
+				Username:   usersValue.Username,
+				Name:       usersValue.Name,
+				Email:      usersValue.Email,
+				Link:       usersValue.Link,
+			})
 		} else {
-			users = append(users, user)
+			users = append(users, User{
+				IsVerified: usersValue.IsVerified,
+				Username:   usersValue.Username,
+				Name:       usersValue.Name,
+				Email:      usersValue.Email,
+				Link:       usersValue.Link,
+			})
 		}
 	}
 

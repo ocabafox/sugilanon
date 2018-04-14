@@ -34,10 +34,3 @@ func (fbAccount *FacebookAccount) GetFacebookAccount() (FacebookAccount, error) 
 
 	return facebookAccount, err
 }
-
-func GetFacebookAccountByFacebookId(facebookId string) (FacebookAccount, error) {
-	var facebookAccount FacebookAccount
-	err := db.Debug().Model(&FacebookAccount{}).Where("facebook_id=?", facebookId).Scan(&facebookAccount).Error
-
-	return facebookAccount, err
-}
