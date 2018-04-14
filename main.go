@@ -79,6 +79,7 @@ func initializeRoutes(origRouter *gin.Engine) {
 
 		router.POST("/login", controllers.Login)
 		router.POST("/deactivate/:username", controllers.Deactivate)
+		router.POST("/story", controllers.Story)
 	}
 
 	admin := origRouter.Group("/admin")
