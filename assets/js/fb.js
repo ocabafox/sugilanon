@@ -25,6 +25,8 @@ function login() {
         }
       })
     }
+  }, {
+    scope: 'email, public_profile'
   });
 }
 
