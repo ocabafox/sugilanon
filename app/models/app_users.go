@@ -17,6 +17,15 @@ type AppUser struct {
 	DeletedAt         *time.Time `json:"deleted_at",omitempty"`
 }
 
+type AppUserByRole struct {
+	IsVerified bool   `json:"is_verified"`
+	Username   string `json:"username"`
+	Name       string `json:"name"`
+	Email      string `json:"email"`
+	Link       string `json:"link"`
+	Role       string `json:"role"`
+}
+
 func (appUser *AppUser) AppUpdateUser() (AppUser, error) {
 	err := db.Debug().Model(&appUser).Omit("application_id", "created_at").Updates(&appUser).Error
 
@@ -61,4 +70,11 @@ func GetAppUsers() ([]AppUser, error) {
 	err := db.Debug().Model(&AppUser{}).Scan(&applicationUsers).Error
 
 	return applicationUsers, err
+}
+
+func GetAppUsersByRole() ([]AppUserByRole, error) {
+	var applicationUsersByRole []AppUserByRole
+	err := db.Debug().Table("facebook_accounts").Select("facebook_accounts.name, facebook_accounts.email, facebook_accounts.link, app_users.username, app_users.is_verified, app_user_roles.role").Joins("INNER JOIN app_users ON facebook_accounts.facebook_id = app_users.application_id").Joins("INNER JOIN app_user_roles ON app_users.id = app_user_roles.app_user_id").Scan(&applicationUsersByRole).Error
+
+	return applicationUsersByRole, err
 }
