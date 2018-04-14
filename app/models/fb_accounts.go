@@ -1,7 +1,10 @@
 package models
 
 import (
+	"encoding/json"
 	"time"
+
+	"github.com/XanderDwyl/sugilanon/app/libs/mycache"
 )
 
 type FacebookAccount struct {
@@ -30,14 +33,21 @@ func (fbAccount *FacebookAccount) FacebookUpdateUser() (FacebookAccount, error) 
 
 func (fbAccount *FacebookAccount) GetFacebookAccount() (FacebookAccount, error) {
 	var facebookAccount FacebookAccount
-	err := db.Debug().Model(&FacebookAccount{}).Where("facebook_id=?", fbAccount.FacebookId).Scan(&facebookAccount).Error
+	var err error
 
-	return facebookAccount, err
-}
+	key := "facebookAccount"
+	cache, err := mycache.Get(key)
+	if err != nil {
+		err = db.Debug().Model(&FacebookAccount{}).Where("facebook_id=?", fbAccount.FacebookId).Scan(&facebookAccount).Error
 
-func GetFacebookAccountByFacebookId(facebookId string) (FacebookAccount, error) {
-	var facebookAccount FacebookAccount
-	err := db.Debug().Model(&FacebookAccount{}).Where("facebook_id=?", facebookId).Scan(&facebookAccount).Error
+		facebookAccountJSON, _ := json.Marshal(facebookAccount)
+		_, err := mycache.Set(key, string(facebookAccountJSON), 1800)
+		if err != nil {
+			return facebookAccount, err
+		}
+	} else {
+		err = json.Unmarshal([]byte(cache), &facebookAccount)
+	}
 
 	return facebookAccount, err
 }
