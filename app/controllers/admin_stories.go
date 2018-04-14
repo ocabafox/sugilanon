@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AdminIndex(c *gin.Context) {
+func AdminStoriesIndex(c *gin.Context) {
 	appUserRole, err := models.GetAppUserRoleByAppUserId(GetAppUserId(c))
 	if err != nil || appUserRole.Role != "admin" {
 		c.Redirect(302, "/")
@@ -15,6 +15,6 @@ func AdminIndex(c *gin.Context) {
 	}
 
 	RenderHTML(c, gin.H{
-		"page": "QUESTIONS | ADMIN",
+		"page": "STORIES | ADMIN",
 	})
 }

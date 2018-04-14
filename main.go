@@ -83,5 +83,7 @@ func initializeRoutes(origRouter *gin.Engine) {
 	admin := origRouter.Group("/admin")
 	{
 		admin.GET("/", controllers.AdminIndex)
+		admin.GET("/stories", controllers.AdminStoriesIndex)
+		admin.GET("/users", controllers.AdminUsersIndex)
 	}
 }
