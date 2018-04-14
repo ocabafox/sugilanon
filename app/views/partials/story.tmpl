@@ -1,15 +1,16 @@
 {{define "partials/story"}}
   {{if .is_login}}
-    <form action="/story" method="post">
+    <form class="story-form" action="/story" method="post">
       <fieldset class="uk-fieldset">
         <legend class="uk-legend">Share your story</legend>
+        <input class="uk-input uk-hidden story-owner" type="text" name="owner" value="{{.app_user_id}}" disabled>
         <div class="uk-margin">
-          <input class="uk-input uk-form-width-medium" type="text" name="title" placeholder="Title">
+          <input class="uk-input uk-form-width-medium story-title" type="text" name="title" placeholder="Title">
         </div>
         <div class="uk-margin">
-          <textarea class="uk-textarea" rows="5" name="body" placeholder="Your Story"></textarea>
+          <textarea class="uk-textarea story-body" rows="5" name="body" placeholder="Your Story"></textarea>
         </div>
-        <button class="uk-button uk-button-primary">Submit</button>
+        <button class="uk-button uk-button-primary story-button" onclick="submitStory(event);" disabled>Submit</button>
       </fieldset>
     </form>
   {{else}}

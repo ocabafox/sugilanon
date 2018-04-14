@@ -12,7 +12,7 @@ function login() {
     if (response.status === 'connected') {
       FB.api('/me?fields=id,name,email,link,gender,updated_time', function(response) {
         if (response && !response.error) {
-          $.post("/login", {
+          $.post('/login', {
             facebook_id: response.id,
             name: response.name,
             email: response.email,
@@ -34,7 +34,7 @@ function logout() {
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
       FB.logout(function(response) {
-        $.get("/logout").done(function() {
+        $.get('/logout').done(function() {
           window.location.replace('/');
         });
       });
