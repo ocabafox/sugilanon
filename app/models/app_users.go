@@ -58,7 +58,7 @@ func GetAppUserByFacebookId(applicationId string) (AppUser, error) {
 	var applicationUser AppUser
 	var err error
 
-	key := "appUser"
+	key := "applicationUser"
 	cache, err := mycache.Get(key)
 	if err != nil {
 		err = db.Debug().Model(&AppUser{}).Where("application_id=?", applicationId).Scan(&applicationUser).Error
@@ -91,7 +91,21 @@ func GetAppUsers() ([]AppUser, error) {
 
 func GetAppUsersByRole() ([]AppUserByRole, error) {
 	var applicationUsersByRole []AppUserByRole
-	err := db.Debug().Table("facebook_accounts").Select("facebook_accounts.name, facebook_accounts.email, facebook_accounts.link, app_users.username, app_users.is_verified, app_user_roles.role").Joins("INNER JOIN app_users ON facebook_accounts.facebook_id = app_users.application_id").Joins("INNER JOIN app_user_roles ON app_users.id = app_user_roles.app_user_id").Scan(&applicationUsersByRole).Error
+	var err error
+
+	key := "applicationUsersByRole"
+	cache, err := mycache.Get(key)
+	if err != nil {
+		err = db.Debug().Table("facebook_accounts").Select("facebook_accounts.name, facebook_accounts.email, facebook_accounts.link, app_users.username, app_users.is_verified, app_user_roles.role").Joins("INNER JOIN app_users ON facebook_accounts.facebook_id = app_users.application_id").Joins("INNER JOIN app_user_roles ON app_users.id = app_user_roles.app_user_id").Scan(&applicationUsersByRole).Error
+
+		applicationUsersByRoleJSON, _ := json.Marshal(applicationUsersByRole)
+		_, err := mycache.Set(key, string(applicationUsersByRoleJSON), 1800)
+		if err != nil {
+			return applicationUsersByRole, err
+		}
+	} else {
+		err = json.Unmarshal([]byte(cache), &applicationUsersByRole)
+	}
 
 	return applicationUsersByRole, err
 }

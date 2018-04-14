@@ -1,7 +1,10 @@
 package models
 
 import (
+	"encoding/json"
 	"time"
+
+	"github.com/XanderDwyl/sugilanon/app/libs/mycache"
 )
 
 type AppUserRole struct {
@@ -33,7 +36,21 @@ func AppDeleteUserRole(appUserId int64) error {
 
 func GetAppUserRoleByAppUserId(appUserId int64) (AppUserRole, error) {
 	var applicationUserRole AppUserRole
-	err := db.Debug().Model(&AppUserRole{}).Where("app_user_id=?", appUserId).Scan(&applicationUserRole).Error
+	var err error
+
+	key := "applicationUserRole"
+	cache, err := mycache.Get(key)
+	if err != nil {
+		err = db.Debug().Model(&AppUserRole{}).Where("app_user_id=?", appUserId).Scan(&applicationUserRole).Error
+
+		applicationUserRoleJSON, _ := json.Marshal(applicationUserRole)
+		_, err := mycache.Set(key, string(applicationUserRoleJSON), 1800)
+		if err != nil {
+			return applicationUserRole, err
+		}
+	} else {
+		err = json.Unmarshal([]byte(cache), &applicationUserRole)
+	}
 
 	return applicationUserRole, err
 }
