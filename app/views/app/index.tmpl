@@ -15,14 +15,12 @@
   <div class="uk-section uk-section-muted">
     <div class="uk-container">
       <ul uk-tab>
-	<li class="uk-active" uk-switcher><a href="#">Question</a></li>
-	<li><a href="#">Storyline</a></li>
+				<li class="uk-active" uk-switcher><a href="#">Question</a></li>
+				<li><a href="#">Storyline</a></li>
       </ul>
       <ul class="uk-switcher uk-margin">
-	<li>
-	  {{template "partials/question" .}}
-	</li>
-	      <li>Hello!</li>
+        <li>{{template "partials/question" .}}</li>
+        <li>{{template "partials/story" .}}</li>
       </ul>
     </div>
   </div>

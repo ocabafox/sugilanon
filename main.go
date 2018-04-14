@@ -6,6 +6,7 @@ import (
 
 	"github.com/XanderDwyl/sugilanon/app/controllers"
 	"github.com/XanderDwyl/sugilanon/app/libs/ezgintemplate"
+	"github.com/XanderDwyl/sugilanon/app/middlewares"
 	"github.com/XanderDwyl/sugilanon/app/models"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/gzip"
@@ -82,6 +83,9 @@ func initializeRoutes(origRouter *gin.Engine) {
 
 	admin := origRouter.Group("/admin")
 	{
+		admin.Use(middleware.AdminAuth())
 		admin.GET("/", controllers.AdminIndex)
+		admin.GET("/stories", controllers.AdminStoriesIndex)
+		admin.GET("/users", controllers.AdminUsersIndex)
 	}
 }
