@@ -2,10 +2,36 @@
   <div class="uk-container">
     {{template "partials/admin-navbar"}}
 
-		<ul class="uk-list uk-list-large uk-list-striped">
-			{{range $fbAccounts := .fbAccounts}}
-				<li>{{$fbAccounts.Name}}</li>
-			{{end}}
-		</ul>
+    <ul class="uk-breadcrumb">
+      <li><a href="/admin">ADMIN</a></li>
+      <li class="uk-disabled"><a>USERS</a></li>
+    </ul>
+    <div class="admins-container uk-margin-bottom">
+      <h3>ADMINISTRATORS</h3>
+      <ul class="uk-list uk-list-large uk-list-striped">
+        {{range $admin := .admins}}
+          <li>
+            <a href="{{$admin.Link}}">{{$admin.Name}}</a>
+            <span class="uk-display-block">USERNAME: {{$admin.Username}}</span>
+            <span class="uk-display-block">EMAIL ADDRESS: {{$admin.Email}}</span>
+            <span class="uk-display-block">VERIFIED: {{$admin.IsVerified}}</span>
+          </li>
+        {{end}}
+      </ul>
+    </div>
+
+    <div class="users-container uk-margin-bottom">
+      <h3>USERS</h3>
+      <ul class="uk-list uk-list-large uk-list-striped">
+        {{range $user := .users}}
+          <li>
+            <a href="{{$user.Link}}">{{$user.Name}}</a>
+            <span class="uk-display-block">USERNAME: {{$user.Username}}</span>
+            <span class="uk-display-block">EMAIL ADDRESS: {{$user.Email}}</span>
+            <span class="uk-display-block">VERIFIED: {{$user.IsVerified}}</span>
+          </li>
+        {{end}}
+      </ul>
+    </div>
   </div>
 {{end}}

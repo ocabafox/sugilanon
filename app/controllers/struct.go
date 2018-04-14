@@ -7,4 +7,5 @@ type User struct {
 	FacebookId string `json:"facebook_id"`
 	Name       string `json:"name"`
 	Email      string `json:"email"`
+	Link       string `json:"link"`
 }
