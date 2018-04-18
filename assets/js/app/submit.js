@@ -1,6 +1,6 @@
 function submitStory(evt) {
   evt.preventDefault();
-	
+  
 	var title = $('.story-title').val();
 	var body = $('.story-body').val();
 	
