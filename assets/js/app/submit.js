@@ -1,15 +1,22 @@
 function submitStory(evt) {
   evt.preventDefault();
+	
+	var title = $('.story-title').val();
+	var body = $('.story-body').val();
+	
+	if (title === "" && body === "") {
+		return;
+	}
 
   $.post('/story', {
     owner: $('.story-owner').val(),
-    title: $('.story-title').val(),
-    body: $('.story-body').val(),
+    title: title,
+    body: body
   }).done(function(res) {
     if (res.status === 'success') {
-      console.log('DISPLAY SUCCESS MESSAGE');
+    	$('.uk-label').html(res.message);
     } else {
-      console.log('DISPLAY ERROR MESSAGE');
+			$('.uk-label').removeClass('uk-label-success').addClass('uk-label-warning').html(res.message);
     }
   }).always(function() {
     $('.story-form').trigger('reset');
