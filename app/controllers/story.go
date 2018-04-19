@@ -1,26 +1,27 @@
 package controllers
 
 import (
-	"log"
+	"strconv"
 
 	"github.com/XanderDwyl/sugilanon/app/models"
 	"github.com/gin-gonic/gin"
 )
 
 func Story(c *gin.Context) {
-	title := c.PostForm("title")
-	body := c.PostForm("body")
+	owner := c.PostForm("owner")
+	appUserId, _ := strconv.ParseInt(owner, 10, 64)
+	story := models.Story{
+		AppUserId: appUserId,
+		Title:     c.PostForm("title"),
+		Body:      c.PostForm("body"),
+	}
 
-	story := models.Story{}
-	story.AppUserID = GetAppUserId(c)
-	story.Title = title
-	story.Body = body
-
-	err := story.Create()
-
+	err := story.CreateStory()
 	if err != nil {
-		log.Println(err)
+		OutputJSON(c, "error", "Unable to create story")
+
 		return
 	}
-	NoRoute(c)
+
+	OutputJSON(c, "success", "Story successfully created")
 }
