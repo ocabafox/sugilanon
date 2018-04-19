@@ -5,12 +5,13 @@
         <legend class="uk-legend">Share your story</legend>
         <input class="uk-input uk-hidden story-owner" type="text" name="owner" value="{{.app_user_id}}" disabled>
         <div class="uk-margin">
-          <input class="uk-input uk-form-width-medium story-title" type="text" name="title" placeholder="Title">
+          <input class="uk-input uk-form-width-medium story-title" type="text" name="title" placeholder="Title" required>
         </div>
         <div class="uk-margin">
-          <textarea class="uk-textarea story-body" rows="5" name="body" placeholder="Your Story"></textarea>
+          <textarea class="uk-textarea story-body" rows="5" name="body" placeholder="Your Story" required></textarea>
         </div>
-        <button class="uk-button uk-button-primary story-button" onclick="submitStory(event);" disabled>Submit</button>
+        <button class="uk-button uk-button-primary story-button" onclick="submitStory(event);">Submit</button>
+	<span class="uk-label uk-label-success"></span>
       </fieldset>
     </form>
   {{else}}
