@@ -67,7 +67,7 @@ func main() {
 }
 
 func initializeRoutes(origRouter *gin.Engine) {
-	origRouter.NoRoute(controllers.NoRoute)
+	origRouter.NoRoute(controllers.PageNotFound)
 
 	router := origRouter.Group("")
 	{
